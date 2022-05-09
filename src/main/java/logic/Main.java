@@ -32,7 +32,7 @@ public class Main {
 //        passengerDao.add(passenger);
 //        passenger.setBirthdate(new Date());
 //        passengerDao.update(passenger);
-//        System.out.println(passengerDao.get(1));
+ //       System.out.println(passengerDao.get(1));
 //        passengerDao.delete(passenger);
 //        System.out.println(passengerDao.getAll());
 //        System.out.println(passengerDao.get(5));
@@ -67,7 +67,10 @@ public class Main {
 //System.out.println(personalInfoDao.get(1).getPersonal().getPersonalInfo().isMarried());
 //        System.out.println(salaryDao.get(2));
 //        System.out.println(ticketDao.get(3));
-        System.out.println(passengerDao.getByIdWithTickets(1));
+       System.out.println(passengerDao.getByIdWithTickets(2));
+   //     System.out.println(passengerDao.get(1).getSurname()); // - видає помилку
+
+
     }
 }
 

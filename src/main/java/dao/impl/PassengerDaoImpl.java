@@ -75,7 +75,6 @@ public class PassengerDaoImpl implements PassengerDao {
         Transaction transaction = session.beginTransaction();
         Passenger passenger = session.get(Passenger.class, id);
         try {
-            System.out.println(passenger);
             transaction.commit();
         } catch (Exception e) {
             System.out.println("Виникла помилка.Транзакція по отриманню елемента не відбулась");
@@ -108,9 +107,9 @@ public class PassengerDaoImpl implements PassengerDao {
         Transaction transaction = session.beginTransaction();
         Query <Passenger> passengerQuery = session.createQuery("From Passenger p " +
                 "left join fetch p.tickets t "+
-               "WHERE t.passenger = :id");
+               "WHERE p.id =:id");
         passengerQuery.setParameter("id", id);
-        Optional<Passenger> passenger = Optional.ofNullable(session.get(Passenger.class, id));
+        Optional<Passenger> passenger = passengerQuery.uniqueResultOptional();
         transaction.commit();
         session.close();
         return passenger;
