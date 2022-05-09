@@ -36,7 +36,9 @@ public class RoutesDaoImp implements RoutesDao {
         }
         session.close();
         return routes;
-    };
+    }
+
+    ;
 
 
     @Override
@@ -58,7 +60,7 @@ public class RoutesDaoImp implements RoutesDao {
     public boolean delete(Routes routes) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Routes delete = session.load(Routes.class,  routes.getId());
+        Routes delete = session.load(Routes.class, routes.getId());
         if (delete != null) {
             session.delete(delete);
             transaction.commit();

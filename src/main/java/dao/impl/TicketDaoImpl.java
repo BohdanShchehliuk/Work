@@ -37,7 +37,9 @@ public class TicketDaoImpl implements TicketDao {
         }
         session.close();
         return ticket;
-    };
+    }
+
+    ;
 
     @Override
     public Ticket update(Ticket ticket) {
@@ -58,7 +60,7 @@ public class TicketDaoImpl implements TicketDao {
     public boolean delete(Ticket ticket) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Ticket  delete = session.load(Ticket.class, ticket.getId());
+        Ticket delete = session.load(Ticket.class, ticket.getId());
         if (delete != null) {
             session.delete(delete);
             transaction.commit();

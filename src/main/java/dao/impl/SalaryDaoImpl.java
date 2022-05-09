@@ -36,7 +36,9 @@ public class SalaryDaoImpl implements SalaryDao {
         }
         session.close();
         return salary;
-    };
+    }
+
+    ;
 
     @Override
     public Salary update(Salary salary) {
@@ -57,7 +59,7 @@ public class SalaryDaoImpl implements SalaryDao {
     public boolean delete(Salary salary) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Salary delete = session.load(Salary.class,  salary.getId());
+        Salary delete = session.load(Salary.class, salary.getId());
         if (delete != null) {
             session.delete(delete);
             transaction.commit();

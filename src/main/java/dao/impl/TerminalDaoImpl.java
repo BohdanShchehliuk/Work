@@ -37,7 +37,9 @@ public class TerminalDaoImpl implements TerminalDao {
         }
         session.close();
         return terminal;
-    };
+    }
+
+    ;
 
     @Override
     public Terminal update(Terminal terminal) {

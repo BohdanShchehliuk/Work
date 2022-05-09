@@ -58,16 +58,17 @@ public class Main {
 //        System.out.println(passengerDao.get(1).getSurname() + " has tickets: "+ passengerDao.get(1).getTickets());
 //       System.out.println(ticketDao.get(1));
 //       System.out.println(aircraftDao.get(1).getAircraftTypes());
-      //System.out.println(passengerDao.getAll());
-      // passengerDao.get(1);
-       //System.out.println(flightDao.get(1).getAircraft().getAircraftTypes().getCapacity());
-      // System.out.println(gateDao.get(1));
-     //   System.out.println(passengerDao.get(1));
-     //   System.out.println(personalDao.get(1).getGate().getTerminal().getName());
+        //System.out.println(passengerDao.getAll());
+        // passengerDao.get(1);
+        //System.out.println(flightDao.get(1).getAircraft().getAircraftTypes().getCapacity());
+        // System.out.println(gateDao.get(1));
+        //   System.out.println(passengerDao.get(1));
+        //   System.out.println(personalDao.get(1).getGate().getTerminal().getName());
 //System.out.println(personalInfoDao.get(1).getPersonal().getPersonalInfo().isMarried());
-        System.out.println(salaryDao.get(2));
-        System.out.println(ticketDao.get(3));
-            }
+//        System.out.println(salaryDao.get(2));
+//        System.out.println(ticketDao.get(3));
+        System.out.println(passengerDao.getByIdWithTickets(1));
+    }
 }
 
 

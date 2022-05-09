@@ -25,5 +25,5 @@ public class Aircraft {
     @JoinColumn(name = "type_id")
     private AircraftTypes aircraftTypes;
 
-    }
+}
 

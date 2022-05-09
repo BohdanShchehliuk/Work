@@ -34,8 +34,10 @@ public class FlightDaoImpl implements FlightDao {
             e.printStackTrace();
         }
         session.close();
-        return  flight;
-    };
+        return flight;
+    }
+
+    ;
 
     @Override
     public Flight update(Flight flight) {
@@ -85,7 +87,7 @@ public class FlightDaoImpl implements FlightDao {
     public List<Flight> getAll() {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        List<Flight> list = session.createQuery("FROM Flight",Flight.class).
+        List<Flight> list = session.createQuery("FROM Flight", Flight.class).
                 getResultList();
         try {
             transaction.commit();

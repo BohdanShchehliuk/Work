@@ -25,6 +25,7 @@ public class Personal {
     private Gate gate;
     @OneToOne
     private PersonalInfo personalInfo;
+
     @Override
     public String toString() {
         return "Personal{" +
@@ -32,6 +33,6 @@ public class Personal {
                 ", name='" + name + '\'' +
                 ", numbPhone=" + numbPhone +
                 ", gate=" + gate +
-                   '}';
+                '}';
     }
 }

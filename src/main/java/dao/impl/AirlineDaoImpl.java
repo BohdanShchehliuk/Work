@@ -11,6 +11,7 @@ import java.util.List;
 
 public class AirlineDaoImpl implements AirlineDao {
     private static SessionFactory sessionFactory;
+
     private static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             return new Configuration()
@@ -34,7 +35,9 @@ public class AirlineDaoImpl implements AirlineDao {
         }
         session.close();
         return airline;
-    };
+    }
+
+    ;
 
     @Override
     public Airline update(Airline airline) {
@@ -69,7 +72,7 @@ public class AirlineDaoImpl implements AirlineDao {
     public Airline get(int id) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Airline  airline = session.get(Airline.class, id);
+        Airline airline = session.get(Airline.class, id);
         try {
             transaction.commit();
         } catch (Exception e) {

@@ -36,8 +36,10 @@ public class GateDaoImpl implements GateDao {
             e.printStackTrace();
         }
         session.close();
-        return  gate;
-    };
+        return gate;
+    }
+
+    ;
 
     @Override
     public Gate update(Gate gate) {
@@ -87,7 +89,7 @@ public class GateDaoImpl implements GateDao {
     public List<Gate> getAll() {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        List<Gate> list = session.createQuery("FROM Gate",Gate.class).
+        List<Gate> list = session.createQuery("FROM Gate", Gate.class).
                 getResultList();
         try {
             transaction.commit();

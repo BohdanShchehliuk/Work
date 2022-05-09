@@ -1,14 +1,15 @@
 package dao.impl;
 
-import dao.GeneralDao;
 import dao.PassengerDao;
 import entity.Passenger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PassengerDaoImpl implements PassengerDao {
     private static SessionFactory sessionFactory;
@@ -98,5 +99,20 @@ public class PassengerDaoImpl implements PassengerDao {
         }
         session.close();
         return list;
+    }
+
+
+    @Override
+    public Optional<Passenger> getByIdWithTickets(int id) {
+        Session session = getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Query <Passenger> passengerQuery = session.createQuery("From Passenger p " +
+                "left join fetch p.tickets t "+
+               "WHERE t.passenger = :id");
+        passengerQuery.setParameter("id", id);
+        Optional<Passenger> passenger = Optional.ofNullable(session.get(Passenger.class, id));
+        transaction.commit();
+        session.close();
+        return passenger;
     }
 }

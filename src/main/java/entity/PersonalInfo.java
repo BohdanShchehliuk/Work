@@ -20,7 +20,7 @@ public class PersonalInfo {
     @OneToOne
     @JoinColumn(name = "id_personal")
     private Personal personal;
-    private  boolean married;
+    private boolean married;
     private Date birthday;
     private String city;
 

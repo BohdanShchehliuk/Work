@@ -36,7 +36,9 @@ public class PersonalDaoImpl implements PersonalDao {
         }
         session.close();
         return personal;
-    };
+    }
+
+    ;
 
     @Override
     public Personal update(Personal personal) {

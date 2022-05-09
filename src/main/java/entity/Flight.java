@@ -44,7 +44,7 @@ public class Flight {
                 ", flightStatus=" + flightStatus +
                 ", terminal=" + terminal.getName() +
                 ", avialineId=" + airline.getName() +
-                ", craft=" +"model: "+ aircraft.getAircraftTypes().getType()+" numb: " + aircraft.getSerialNumber() +
+                ", craft=" + "model: " + aircraft.getAircraftTypes().getType() + " numb: " + aircraft.getSerialNumber() +
                 ", gateId=" + gateId +
                 '}';
     }

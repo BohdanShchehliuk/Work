@@ -37,7 +37,9 @@ public class PersonalInfoDaoImpl implements PersonalInfoDao {
         }
         session.close();
         return personalInfo;
-    };
+    }
+
+    ;
 
     @Override
     public PersonalInfo update(PersonalInfo personalInfo) {
@@ -58,7 +60,7 @@ public class PersonalInfoDaoImpl implements PersonalInfoDao {
     public boolean delete(PersonalInfo personalInfo) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        PersonalInfo  delete = session.load(PersonalInfo .class,  personalInfo.getId());
+        PersonalInfo delete = session.load(PersonalInfo.class, personalInfo.getId());
         if (delete != null) {
             session.delete(delete);
             transaction.commit();
@@ -87,7 +89,7 @@ public class PersonalInfoDaoImpl implements PersonalInfoDao {
     public List<PersonalInfo> getAll() {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        List<PersonalInfo> list = session.createQuery("FROM PersonalInfo",PersonalInfo.class).
+        List<PersonalInfo> list = session.createQuery("FROM PersonalInfo", PersonalInfo.class).
                 getResultList();
         try {
             transaction.commit();
