@@ -1,7 +1,8 @@
 package dao.impl;
 
-import dao.AirlineDao;
-import entity.Airline;
+import dao.GeneralDao;
+import dao.PassengerDao;
+import entity.Passenger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,8 +10,9 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.List;
 
-public class AirlineDaoImpl implements AirlineDao {
+public class PassengerDaoImpl implements PassengerDao {
     private static SessionFactory sessionFactory;
+
     private static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             return new Configuration()
@@ -22,10 +24,10 @@ public class AirlineDaoImpl implements AirlineDao {
 
 
     @Override
-    public Airline add(Airline airline) {
+    public Passenger add(Passenger passenger) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.save(airline);
+        session.save(passenger);
         try {
             transaction.commit();
         } catch (Exception e) {
@@ -33,14 +35,15 @@ public class AirlineDaoImpl implements AirlineDao {
             e.printStackTrace();
         }
         session.close();
-        return airline;
+        return passenger;
     };
 
+
     @Override
-    public Airline update(Airline airline) {
+    public Passenger update(Passenger passenger) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        session.update(airline);
+        session.update(passenger);
         try {
             transaction.commit();
         } catch (Exception e) {
@@ -52,10 +55,10 @@ public class AirlineDaoImpl implements AirlineDao {
     }
 
     @Override
-    public boolean delete(Airline airline) {
+    public boolean delete(Passenger passenger) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Airline delete = session.load(Airline.class, airline.getId());
+        Passenger delete = session.load(Passenger.class, passenger.getId());
         if (delete != null) {
             session.delete(delete);
             transaction.commit();
@@ -66,25 +69,26 @@ public class AirlineDaoImpl implements AirlineDao {
     }
 
     @Override
-    public Airline get(int id) {
+    public Passenger get(int id) {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        Airline  airline = session.get(Airline.class, id);
+        Passenger passenger = session.get(Passenger.class, id);
         try {
+            System.out.println(passenger);
             transaction.commit();
         } catch (Exception e) {
             System.out.println("Виникла помилка.Транзакція по отриманню елемента не відбулась");
             e.printStackTrace();
         }
         session.close();
-        return airline;
+        return passenger;
     }
 
     @Override
-    public List<Airline> getAll() {
+    public List<Passenger> getAll() {
         Session session = getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        List<Airline> list = session.createQuery("FROM Airline", Airline.class).
+        List<Passenger> list = session.createQuery("FROM Passenger", Passenger.class).
                 getResultList();
         try {
             transaction.commit();
