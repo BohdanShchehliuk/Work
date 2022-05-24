@@ -4,7 +4,14 @@ import dao.*;
 import dao.impl.*;
 import entity.*;
 import lombok.Data;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import repository.TicketRepository;
+import repository.impl.AircraftRepositoryImpl;
+import repository.impl.SalaryRepositoryImpl;
+import repository.impl.TicketRepositoryImpl;
 
+@SpringBootApplication
 @Data
 public class Main {
     private static PassengerDao passengerDao = new PassengerDaoImpl();
@@ -32,7 +39,7 @@ public class Main {
 //        passengerDao.add(passenger);
 //        passenger.setBirthdate(new Date());
 //        passengerDao.update(passenger);
- //       System.out.println(passengerDao.get(1));
+        //       System.out.println(passengerDao.get(1));
 //        passengerDao.delete(passenger);
 //        System.out.println(passengerDao.getAll());
 //        System.out.println(passengerDao.get(5));
@@ -67,10 +74,15 @@ public class Main {
 //System.out.println(personalInfoDao.get(1).getPersonal().getPersonalInfo().isMarried());
 //        System.out.println(salaryDao.get(2));
 //        System.out.println(ticketDao.get(3));
-       System.out.println(passengerDao.getByIdWithTickets(2));
-   //     System.out.println(passengerDao.get(1).getSurname()); // - видає помилку
-
-
+//        System.out.println(passengerDao.getByIdWithTickets(2));
+//        //     System.out.println(passengerDao.get(1).getSurname()); // - видає помилку
+//        AircraftRepositoryImpl aircraftRepository = new AircraftRepositoryImpl();
+//        aircraftRepository.getAll();
+//        SalaryRepositoryImpl salaryRepository = new SalaryRepositoryImpl();
+//        System.out.println(salaryRepository.getAll());
+//        TicketRepositoryImpl ticketRepository = new TicketRepositoryImpl();
+//        System.out.println(ticketRepository.getAll());
+        SpringApplication.run(Main.class,args);
     }
 }
 
