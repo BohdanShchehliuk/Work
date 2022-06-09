@@ -22,7 +22,7 @@ public class Passenger {
     private String surname;
     private String name;
     private Date birthdate;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "passenger")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "passenger", orphanRemoval = true)
     private List<Ticket> tickets;
 
     @Override
@@ -33,7 +33,7 @@ public class Passenger {
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", birthdate=" + birthdate +
-                ", tickets=" + tickets +
+
                 '}';
     }
 }

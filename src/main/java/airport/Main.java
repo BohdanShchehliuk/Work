@@ -2,10 +2,34 @@ package airport;
 
 import airport.dao.*;
 import airport.dao.impl.*;
+import airport.dto.FlightDto;
+import airport.dto.PassengerDto;
+import airport.entity.Aircraft;
+import airport.entity.Flight;
+import airport.entity.Passenger;
+import airport.repository.AircraftRepository;
+import airport.repository.FlightRepository;
+import airport.repository.PassengerRepository;
+import airport.repository.impl.AircraftRepositoryImpl;
+import airport.repository.impl.FlightRepositoryImpl;
+import airport.repository.impl.PassengerRepositoryImpl;
+import airport.service.FlightService;
+import airport.service.TicketService;
+import airport.service.impl.FlightServiceImpl;
+import airport.service.impl.TicketServiceImpl;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
+import org.modelmapper.ModelMapper;
+
+@Builder
 @SpringBootApplication
 @Data
 public class Main {
@@ -21,14 +45,14 @@ public class Main {
     private static PersonalInfoDao personalInfoDao = new PersonalInfoDaoImpl();
     private static TerminalDao terminalDao = new TerminalDaoImpl();
     private static TicketDao ticketDao = new TicketDaoImpl();
-
+    private ModelMapper modelMapper;
     public static void main(String[] args) {
 
 //              Passenger passenger = Passenger.builder()
 //                .passport("AA1222")
 //                .surname("Petrenko")
 //                .name("Ivan")
-//                .ticketId(1)
+//                .tickets(ticketDao.add())??
 //                 .build();
 //
 //        passengerDao.add(passenger);
@@ -77,7 +101,38 @@ public class Main {
 //        System.out.println(salaryRepository.getAll());
 //        TicketRepositoryImpl ticketRepository = new TicketRepositoryImpl();
 //        System.out.println(ticketRepository.getAll());
-        SpringApplication.run(Main.class,args);
+//        PassengerRepositoryImpl passengerRepository = new PassengerRepositoryImpl();
+//        passengerRepository.get(1);
+
+        SpringApplication.run(Main.class, args);
+
+
+//        PassengerDto passengerDto;
+//
+//        ModelMapper modelMapper = new ModelMapper();
+//
+//        System.out.println(passengerDao.getPassengerByPassport("GO1234"));
+//        passengerDto = modelMapper.map(passengerDao.getPassengerByPassport("GO1234"), PassengerDto.class);
+//
+//        TicketService ticketService = new TicketServiceImpl();
+//        ticketService.byTicket(passengerDto, 8);
+
+//        Flight flight = Flight.builder()
+//                .flightNumb(333333)
+//                .flightStatus(0)
+//                .aircraft(aircraftDao.get(2))
+//                .airline(airlineDao.get(2))
+//                .terminal(terminalDao.get(1))
+//                .routes(routesDao.get(1))
+//                .time(new Date())
+//                .build();
+//        System.out.println(flight.toString());
+//        flightDao.add(flight);
+//        TicketService ticketService = new TicketServiceImpl();
+//        ticketService.addTicketsForFlight(flight);
+
+
+
     }
 }
 

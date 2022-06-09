@@ -12,4 +12,24 @@ public class AirlineRepositoryImpl implements AirlineRepository {
     public Optional<List<Airline>> getAll() {
         return Optional.ofNullable(new AirlineDaoImpl().getAll());
     }
+
+    @Override
+    public Airline add(Airline airline) {
+        return new AirlineDaoImpl().add(airline);
+    }
+
+    @Override
+    public Airline update(Airline airline) {
+        return  new AirlineDaoImpl().update(airline);
+    }
+
+    @Override
+    public boolean delete(Airline airline) {
+        return  new AirlineDaoImpl().delete(airline);
+    }
+
+    @Override
+    public Airline get(int id) {
+        return  new AirlineDaoImpl().get(id);
+    }
 }

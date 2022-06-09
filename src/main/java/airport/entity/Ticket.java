@@ -20,7 +20,7 @@ public class Ticket {
     @Column(name = "flight_id")
     private int flightId;
     private int seat;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn (name = "passanger_id")
     private Passenger passenger;
     @Column(name = "ticket_staus")
@@ -39,6 +39,6 @@ public class Ticket {
                 ", passenger=" + passenger.getSurname() + " "+passenger.getName() +" "+passenger.getPassport()+
                 ", ticketStaus=" + ticketStaus +
                 ", route=" + routes.getRoute() +
-                '}';
+              '}';
     }
 }

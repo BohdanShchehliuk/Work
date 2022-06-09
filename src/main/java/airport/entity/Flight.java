@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -20,20 +20,23 @@ public class Flight {
     private int id;
     @Column(name = "flight_numb")
     private int flightNumb;
-    private Date time;
+    private LocalDateTime time;
     @Column(name = "flight_status")
     private int flightStatus;
     @ManyToOne
     @JoinColumn(name = "terminal_id")
     private Terminal terminal;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "avialine_id")
     private Airline airline;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "craft_id")
     private Aircraft aircraft;
     @Column(name = "gate_id")
     private int gateId;
+    @ManyToOne
+    @JoinColumn(name = "routes_id")
+    private Routes routes;
 
     @Override
     public String toString() {
@@ -42,10 +45,10 @@ public class Flight {
                 ", flightNumb=" + flightNumb +
                 ", time=" + time +
                 ", flightStatus=" + flightStatus +
-                ", terminal=" + terminal.getName() +
-                ", avialineId=" + airline.getName() +
-                ", craft=" + "model: " + aircraft.getAircraftTypes().getType() + " numb: " + aircraft.getSerialNumber() +
-                ", gateId=" + gateId +
+//             /   ", terminal=" + terminal.getName() +
+//                ", avialineId=" + airline.getName() +
+//                ", craft=" + "model: " + aircraft.getAircraftTypes().getType() + " numb: " + aircraft.getSerialNumber() +
+//                ", gateId=" + gateId + "rout = " + routes.getRoute()+
                 '}';
     }
 }

@@ -114,4 +114,18 @@ public class PassengerDaoImpl implements PassengerDao {
         session.close();
         return passenger;
     }
+
+    @Override
+    public Optional <Passenger>  getPassengerByPassport(String passport) {
+        Session session = getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Query <Passenger> passengerQuery = session.createQuery("From Passenger p " +
+                "WHERE p.passport =:passport");
+        passengerQuery.setParameter("passport", passport);
+        Optional<Passenger> passenger = passengerQuery.uniqueResultOptional();
+        transaction.commit();
+        session.close();
+        return passenger;
+    }
+
 }

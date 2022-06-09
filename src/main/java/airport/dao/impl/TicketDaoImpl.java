@@ -48,7 +48,7 @@ public class TicketDaoImpl implements TicketDao {
         try {
             transaction.commit();
         } catch (Exception e) {
-            System.out.println("Виникла помилка. Транзакція по оновленню не відбулась");
+            System.out.println("Виникла помилка. Транзакція по оновленню квитків не відбулась");
             e.printStackTrace();
         }
         session.close();
@@ -98,5 +98,14 @@ public class TicketDaoImpl implements TicketDao {
         }
         session.close();
         return list;
+    }
+
+    @Override
+    public void addAll(List<Ticket> list) {
+        Session session = getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        list.stream().forEach(ticket -> session.save(ticket));
+        transaction.commit();
+        session.close();
     }
 }

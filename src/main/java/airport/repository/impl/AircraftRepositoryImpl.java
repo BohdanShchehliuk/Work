@@ -12,4 +12,24 @@ public class AircraftRepositoryImpl implements AircraftRepository {
     public Optional<List<Aircraft>> getAll() {
         return Optional.ofNullable(new AircraftDaoImpl().getAll());
     }
+
+    @Override
+    public Aircraft add(Aircraft aircraft) {
+        return new AircraftDaoImpl().add(aircraft);
+    }
+
+    @Override
+    public Aircraft update(Aircraft aircraft) {
+        return new AircraftDaoImpl().update(aircraft);
+    }
+
+    @Override
+    public boolean delete(Aircraft aircraft) {
+        return new AircraftDaoImpl().delete(aircraft);
+    }
+
+    @Override
+    public Aircraft get(int id) {
+        return new AircraftDaoImpl().get(id);
+    }
 }
