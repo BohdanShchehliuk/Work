@@ -4,15 +4,11 @@ import airport.entity.Passenger;
 import airport.entity.Ticket;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 @Configuration
-public interface PassengerRepository {
-   List <Passenger> getAll();
-    Passenger add(Passenger passenger);
-    Passenger update(Passenger passenger);
-    boolean delete(Passenger passenger);
-    Passenger get(int id);
-    Optional <Passenger> getByPassport(String passport);
-}
+public interface PassengerRepository extends JpaRepository <Passenger, Integer> {
+Passenger findByPassport(String passport);
+ }

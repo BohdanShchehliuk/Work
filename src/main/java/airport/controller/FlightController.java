@@ -8,26 +8,21 @@ import airport.entity.Airline;
 import airport.entity.Flight;
 import airport.repository.AircraftRepository;
 import airport.repository.FlightRepository;
-import airport.repository.impl.AircraftRepositoryImpl;
+import airport.service.impl.FlightServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import airport.service.FlightService;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @RestController
 @AllArgsConstructor
 public class FlightController {
     FlightRepository flightRepository;
     ModelMapper modelMapper;
-    public FlightService flightService;
+    public FlightServiceImpl flightService;
 
     @PostMapping("/flight/post/")
     public String saveFlight(@RequestBody FlightDto flightDto) {
@@ -37,15 +32,14 @@ public class FlightController {
     }
     @GetMapping("/flight/data/between/")
     private String getAllFomDataAtoDataB(@RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate startData, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData){
-        System.out.println(flightRepository.getAll());
+
         return flightService.getAllFomDataAtoDataB(startData, finishData).toString();
     }
 
 
     @GetMapping("/flight/get")
     public FlightDto get() {
-        AircraftRepository aircraftRepository = new AircraftRepositoryImpl();
-        return FlightDto.builder()
+              return FlightDto.builder()
                 .flightNumb(12121)
                 .flightStatus(1)
                 .time(LocalDateTime.now())

@@ -1,50 +1,16 @@
 package airport;
 
-import airport.dao.*;
-import airport.dao.impl.*;
-import airport.dto.FlightDto;
-import airport.dto.PassengerDto;
-import airport.entity.Aircraft;
-import airport.entity.Flight;
-import airport.entity.Passenger;
-import airport.repository.AircraftRepository;
-import airport.repository.FlightRepository;
-import airport.repository.PassengerRepository;
-import airport.repository.impl.AircraftRepositoryImpl;
-import airport.repository.impl.FlightRepositoryImpl;
-import airport.repository.impl.PassengerRepositoryImpl;
-import airport.service.FlightService;
-import airport.service.TicketService;
-import airport.service.impl.FlightServiceImpl;
-import airport.service.impl.TicketServiceImpl;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
 import org.modelmapper.ModelMapper;
 
 @Builder
 @SpringBootApplication
 @Data
 public class Main {
-    private static PassengerDao passengerDao = new PassengerDaoImpl();
-    private static AircraftDao aircraftDao = new AircraftDaoImpl();
-    private static AircraftTypesDao aircraftTypesDao = new AircraftTypesDaoImpl();
-    private static AirlineDao airlineDao = new AirlineDaoImpl();
-    private static FlightDao flightDao = new FlightDaoImpl();
-    private static GateDao gateDao = new GateDaoImpl();
-    private static PersonalDao personalDao = new PersonalDaoImpl();
-    private static RoutesDao routesDao = new RoutesDaoImp();
-    private static SalaryDao salaryDao = new SalaryDaoImpl();
-    private static PersonalInfoDao personalInfoDao = new PersonalInfoDaoImpl();
-    private static TerminalDao terminalDao = new TerminalDaoImpl();
-    private static TicketDao ticketDao = new TicketDaoImpl();
     private ModelMapper modelMapper;
     public static void main(String[] args) {
 
@@ -130,7 +96,6 @@ public class Main {
 //        flightDao.add(flight);
 //        TicketService ticketService = new TicketServiceImpl();
 //        ticketService.addTicketsForFlight(flight);
-
 
 
     }

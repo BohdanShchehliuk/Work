@@ -6,6 +6,7 @@ import airport.repository.PassengerRepository;
 import airport.service.PassengerService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PassengerController {
     PassengerRepository passengerRepository;
+   @Autowired
     public PassengerService passengerService;
     ModelMapper modelMapper;
 
@@ -36,7 +38,7 @@ public class PassengerController {
 
     @PostMapping("/passenger/delete/")
     public String deletePassenger(@RequestParam String passport) {
-    passengerRepository.delete(passengerRepository.getAll().stream().filter(p -> p.getPassport().equals(passport)).findFirst().orElseThrow());
+    passengerRepository.delete(passengerRepository.findAll().stream().filter(p -> p.getPassport().equals(passport)).findFirst().orElseThrow());
               return "You have deleted a passenger ";
     }
 
@@ -53,7 +55,8 @@ public class PassengerController {
 
     @GetMapping("/passenger/getbypassport/")
     public Optional<PassengerDto> getbypassport(@RequestParam String passport) {
-        Passenger passenger = passengerRepository.getByPassport(passport).orElseThrow();
+
+        Passenger passenger = passengerService.getPassengerByPassport(passport);
         return Optional.ofNullable(modelMapper.map(passenger, PassengerDto.class));
     }
 }

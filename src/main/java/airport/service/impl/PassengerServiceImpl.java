@@ -1,30 +1,29 @@
 package airport.service.impl;
 
-import airport.dao.impl.PassengerDaoImpl;
 import airport.dto.PassengerDto;
 import airport.entity.Passenger;
 import airport.repository.PassengerRepository;
-import airport.repository.impl.PassengerRepositoryImpl;
 import airport.service.PassengerService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
-    PassengerRepository passengerRepository = new PassengerRepositoryImpl();
+    @Autowired
+    PassengerRepository passengerRepository;
     ModelMapper modelMapper;
 
     @Override
     public Passenger addPassenger(Passenger passenger) {
-        return passengerRepository.add(passenger);
+        return passengerRepository.save(passenger);
     }
 
     @Override
     public List<Passenger> getAll() {
-        return new PassengerDaoImpl().getAll();
+        return passengerRepository.findAll();
     }
 
 //    @Override - кастомний мапер
@@ -34,9 +33,9 @@ public class PassengerServiceImpl implements PassengerService {
 //       return  Optional.ofNullable(requestPassengerDto.fromPassengerToDTO(passenger));
 //    }
        @Override // молдерний мапер
-   public PassengerDto getPassengerByPassport(String passport) {
-               Passenger passenger = passengerRepository.getByPassport(passport).orElseThrow();
-          return  modelMapper.map(passenger, PassengerDto.class);
+   public Passenger getPassengerByPassport(String passport) {
+               Passenger passenger = passengerRepository.findByPassport(passport);
+          return  passenger;
     }
 
     @Override

@@ -1,10 +1,9 @@
 package airport.service.impl;
 
-import airport.dao.impl.FlightDaoImpl;
 import airport.dto.FlightDto;
 import airport.entity.Flight;
-import airport.repository.impl.FlightRepositoryImpl;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import airport.repository.FlightRepository;
 
@@ -14,17 +13,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+
 public class FlightServiceImpl implements airport.service.FlightService {
     ModelMapper modelMapper = new ModelMapper();
-    FlightRepository flightRepository = new FlightRepositoryImpl();
+  @Autowired
+    FlightRepository flightRepository;
 
     public Flight addFlight(Flight flight) {
-        return flightRepository.add(flight);
+        System.out.println("Lalala"+ flight.getAircraft().getAircraftTypes());
+        return flightRepository.save(flight);
     }
 
     @Override
     public List<Flight> getAll() {
-        return new FlightDaoImpl().getAll();
+        return flightRepository.findAll();
     }
 
     @Override

@@ -16,13 +16,13 @@ public class Aircraft {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "serialNumber")
+    @JoinColumn(name = "serial_number")
     private int serialNumber;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "airline_id")
     private Airline airline;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "type_id")
+    @JoinColumn(name = "aircraft_type_id", referencedColumnName = "id")
     private AircraftTypes aircraftTypes;
 
 }

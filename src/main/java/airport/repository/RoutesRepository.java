@@ -2,17 +2,10 @@ package airport.repository;
 
 import airport.entity.Routes;
 import airport.entity.Routes;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface RoutesRepository {
-    Optional <List<Routes>> getAll();
-    Routes add(Routes routes);
-
-    Routes update(Routes routes);
-
-    boolean delete(Routes routes);
-
-    Routes get(int id);
-}
+public interface RoutesRepository extends JpaRepository <Routes, Integer> {
+ }

@@ -9,13 +9,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 @Repository
-public interface TicketRepository /*extends JpaRepository<Ticket, Integer>*/{
-    List<Ticket> getAll();
-    Ticket add(Ticket ticket);
-
-    Ticket update(Ticket ticket);
-
-    boolean delete(Ticket ticket);
-
-    Ticket get(int id);
+public interface TicketRepository extends JpaRepository<Ticket, Integer>{
 }

@@ -2,14 +2,11 @@ package airport.repository;
 
 import airport.entity.Aircraft;
 import airport.entity.AircraftTypes;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface AircraftTypesRepository {
-    Optional<List<AircraftTypes>> getAll();
-    AircraftTypes add(AircraftTypes aircraftTypes);
-    AircraftTypes update(AircraftTypes aircraftTypes);
-    boolean delete(AircraftTypes aircraftTypes);
-    AircraftTypes get(int id);
+public interface AircraftTypesRepository extends JpaRepository <Aircraft, Integer> {
+
 }
