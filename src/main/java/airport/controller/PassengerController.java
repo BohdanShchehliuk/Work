@@ -9,13 +9,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
 public class PassengerController {
     PassengerRepository passengerRepository;
-   @Autowired
+    @Autowired
     public PassengerService passengerService;
     ModelMapper modelMapper;
 
@@ -38,8 +39,8 @@ public class PassengerController {
 
     @PostMapping("/passenger/delete/")
     public String deletePassenger(@RequestParam String passport) {
-    passengerRepository.delete(passengerRepository.findAll().stream().filter(p -> p.getPassport().equals(passport)).findFirst().orElseThrow());
-              return "You have deleted a passenger ";
+        passengerRepository.delete(passengerRepository.findAll().stream().filter(p -> p.getPassport().equals(passport)).findFirst().orElseThrow());
+        return "You have deleted a passenger ";
     }
 
 //    {
@@ -54,11 +55,17 @@ public class PassengerController {
 //    }
 
     @GetMapping("/passenger/getbypassport/")
-    public Optional<PassengerDto> getbypassport(@RequestParam String passport) {
-
+    public Optional<PassengerDto> getByPassport(@RequestParam String passport) {
         Passenger passenger = passengerService.getPassengerByPassport(passport);
         return Optional.ofNullable(modelMapper.map(passenger, PassengerDto.class));
     }
+
+    @GetMapping("/passenger/allpassengerbyflightnumber/")
+    public String getPassengerByFlightNumb(@RequestParam int flightNumb) {
+        List <Passenger> list =  passengerRepository.getPassengerByFlightNumb(flightNumb);
+        return list.toString();
+    }
+
 }
 
 

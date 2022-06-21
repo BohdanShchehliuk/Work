@@ -16,11 +16,10 @@ import java.util.stream.Collectors;
 
 public class FlightServiceImpl implements airport.service.FlightService {
     ModelMapper modelMapper = new ModelMapper();
-  @Autowired
+    @Autowired
     FlightRepository flightRepository;
 
     public Flight addFlight(Flight flight) {
-        System.out.println("Lalala"+ flight.getAircraft().getAircraftTypes());
         return flightRepository.save(flight);
     }
 

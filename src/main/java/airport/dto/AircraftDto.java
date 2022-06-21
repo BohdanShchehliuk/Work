@@ -23,6 +23,5 @@ public class AircraftDto {
         return Aircraft.builder()
                 .serialNumber(this.serialNumber)
                 .build();
-
     }
 }

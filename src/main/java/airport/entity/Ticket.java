@@ -17,11 +17,12 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int number;
-    @Column(name = "flight_id")
-    private int flightId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "flight_id")
+    private Flight flightId;
     private int seat;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn (name = "passanger_id")
+    @JoinColumn(name = "passanger_id")
     private Passenger passenger;
     @Column(name = "ticket_staus")
     private int ticketStaus;
@@ -36,9 +37,9 @@ public class Ticket {
                 ", number=" + number +
                 ", flightId=" + flightId +
                 ", seat=" + seat +
-                ", passenger=" + passenger.getSurname() + " "+passenger.getName() +" "+passenger.getPassport()+
+                ", passenger=" + passenger.getSurname() + " " + passenger.getName() + " " + passenger.getPassport() +
                 ", ticketStaus=" + ticketStaus +
                 ", route=" + routes.getRoute() +
-              '}';
+                '}';
     }
 }

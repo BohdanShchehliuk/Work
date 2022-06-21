@@ -35,12 +35,9 @@ public class TicketServiceImpl implements TicketService {
         Aircraft aircraft = flight.getAircraft();
         AircraftTypes aircraftTypes = aircraft.getAircraftTypes();
         List<Ticket> ticketList = IntStream.range(1, aircraftTypes.getCapacity())
-                .mapToObj(seat -> Ticket.builder().ticketStaus(TICKET_STATUS_NOT_SOLD).number(flight.hashCode() + seat).seat(seat).flightId(flight.getId()).build()).collect(Collectors.toList());
-
+                .mapToObj(seat -> Ticket.builder().ticketStaus(TICKET_STATUS_NOT_SOLD).number(flight.hashCode() + seat).
+                        seat(seat).flightId(flight).build()).collect(Collectors.toList());
         ticketRepository.saveAll(ticketList);
-
-        //    ticketRepository.saveAndFlush(ticketList.get(1));
-
         return ticketList;
     }
 
@@ -51,7 +48,8 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public List<Ticket> getAllFreeTickets(int flightId) {
-        return ticketRepository.findAll().stream().filter(ticket -> (ticket.getTicketStaus() == TICKET_STATUS_NOT_SOLD && ticket.getFlightId() == flightId)).collect(Collectors.toList());
+        return ticketRepository.findAll().stream().filter(ticket -> (ticket.getTicketStaus() == TICKET_STATUS_NOT_SOLD &&
+                ticket.getId() == flightId)).collect(Collectors.toList());
     }
 
     @Override

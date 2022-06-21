@@ -6,11 +6,11 @@ import airport.entity.Aircraft;
 import airport.entity.AircraftTypes;
 import airport.entity.Airline;
 import airport.entity.Flight;
-import airport.repository.AircraftRepository;
 import airport.repository.FlightRepository;
 import airport.service.impl.FlightServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +20,14 @@ import java.time.LocalDateTime;
 @RestController
 @AllArgsConstructor
 public class FlightController {
+    @Autowired
     FlightRepository flightRepository;
     ModelMapper modelMapper;
     public FlightServiceImpl flightService;
 
     @PostMapping("/flight/post/")
     public String saveFlight(@RequestBody FlightDto flightDto) {
-        System.out.println("flightDTO = " + flightDto);
+
         flightService.addFlight(modelMapper.map(flightDto, Flight.class));
         return "You add a new flight ";
     }
@@ -36,10 +37,16 @@ public class FlightController {
         return flightService.getAllFomDataAtoDataB(startData, finishData).toString();
     }
 
-
+@GetMapping ("/flight/get/tickets/")
+public String getByNumber(@RequestParam int flightNumb) {
+    Flight flight = flightRepository.findFlightByFlightNumb(flightNumb);
+    System.out.println(flight.toString());
+    return flight.toString();
+}
     @GetMapping("/flight/get")
     public FlightDto get() {
-              return FlightDto.builder()
+
+        return FlightDto.builder()
                 .flightNumb(12121)
                 .flightStatus(1)
                 .time(LocalDateTime.now())

@@ -1,13 +1,9 @@
 package airport.dto;
-
-import airport.entity.Passenger;
 import airport.entity.Routes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import javax.persistence.*;
 
 @Data
@@ -34,6 +30,4 @@ public class TicketDto {
                 .build();
 
     }
-
 }
-
