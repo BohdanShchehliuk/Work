@@ -6,11 +6,9 @@ import airport.entity.Aircraft;
 import airport.entity.AircraftTypes;
 import airport.entity.Airline;
 import airport.entity.Flight;
-import airport.repository.FlightRepository;
 import airport.service.impl.FlightServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,38 +18,33 @@ import java.time.LocalDateTime;
 @RestController
 @AllArgsConstructor
 public class FlightController {
-    @Autowired
-    FlightRepository flightRepository;
-    ModelMapper modelMapper;
-    public FlightServiceImpl flightService;
+    private ModelMapper modelMapper;
+    private FlightServiceImpl flightService;
 
     @PostMapping("/flight/post/")
     public String saveFlight(@RequestBody FlightDto flightDto) {
-
         flightService.addFlight(modelMapper.map(flightDto, Flight.class));
         return "You add a new flight ";
     }
-    @GetMapping("/flight/data/between/")
-    private String getAllFomDataAtoDataB(@RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate startData, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData){
 
+    @GetMapping("/flight/data/between/")
+    private String getAllFomDataAtoDataB(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startData,
+                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData) {
         return flightService.getAllFomDataAtoDataB(startData, finishData).toString();
     }
 
-@GetMapping ("/flight/get/tickets/")
-public String getByNumber(@RequestParam int flightNumb) {
-    Flight flight = flightRepository.findFlightByFlightNumb(flightNumb);
-    System.out.println(flight.toString());
-    return flight.toString();
-}
-    @GetMapping("/flight/get")
-    public FlightDto get() {
+    @GetMapping("/flight/get/tickets/")
+    public String getByNumber(@RequestParam int flightNumb) {
+        return flightService.findFlightByFlightNumb(flightNumb).toString();
+    }
 
+    @GetMapping("/flight/create")
+    public FlightDto create() {
         return FlightDto.builder()
                 .flightNumb(12121)
                 .flightStatus(1)
                 .time(LocalDateTime.now())
-
-                                .aircraft(Aircraft.builder()
+                .aircraft(Aircraft.builder()
                         .aircraftTypes(AircraftTypes.builder()
                                 .capacity(300)
                                 .produser("Nokia")
@@ -62,6 +55,8 @@ public String getByNumber(@RequestParam int flightNumb) {
                         .build())
                 .build();
     }
+}
+//    For Example
 //    {
 //        "flightNumb": 12121,
 //            "flightStatus": 1,
@@ -83,4 +78,4 @@ public String getByNumber(@RequestParam int flightNumb) {
 //        }
 //    }
 //    }
-}
+

@@ -6,19 +6,17 @@ import airport.repository.PassengerRepository;
 import airport.service.PassengerService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 @AllArgsConstructor
 public class PassengerController {
-    PassengerRepository passengerRepository;
-    @Autowired
-    public PassengerService passengerService;
-    ModelMapper modelMapper;
+    private PassengerService passengerService;
+    private ModelMapper modelMapper;
 
     @PostMapping("/passenger/post/")
     public String savePassenger(@RequestBody PassengerDto passenger) {
@@ -38,11 +36,25 @@ public class PassengerController {
     }
 
     @PostMapping("/passenger/delete/")
-    public String deletePassenger(@RequestParam String passport) {
-        passengerRepository.delete(passengerRepository.findAll().stream().filter(p -> p.getPassport().equals(passport)).findFirst().orElseThrow());
-        return "You have deleted a passenger ";
+    public String deletePassenger(@RequestParam String passport) throws Exception {
+        if (passengerService.delete(passport).equals("success"))
+            return "You have deleted a passenger ";
+        return "There is no such passenger";
     }
 
+    @GetMapping("/passenger/getbypassport/")
+    public Optional<PassengerDto> getByPassport(@RequestParam String passport) {
+        Passenger passenger = passengerService.getPassengerByPassport(passport);
+        return Optional.ofNullable(modelMapper.map(passenger, PassengerDto.class));
+    }
+
+    @GetMapping("/passenger/allpassengerbyflightnumber/")
+    public String getPassengerByFlightNumb(@RequestParam int flightNumb) {
+        List<Passenger> list = passengerService.getPassengerByFlightNumb(flightNumb);
+        return list.toString();
+    }
+}
+//    For Example
 //    {
 //        "passport": "s2134",
 //            "surname": "Noris",
@@ -53,19 +65,4 @@ public class PassengerController {
 //    public Optional<RequestPassengerDto> getbypassport(@RequestParam String passport) {
 //return passengerService.getPassengerByPassport(passport);
 //    }
-
-    @GetMapping("/passenger/getbypassport/")
-    public Optional<PassengerDto> getByPassport(@RequestParam String passport) {
-        Passenger passenger = passengerService.getPassengerByPassport(passport);
-        return Optional.ofNullable(modelMapper.map(passenger, PassengerDto.class));
-    }
-
-    @GetMapping("/passenger/allpassengerbyflightnumber/")
-    public String getPassengerByFlightNumb(@RequestParam int flightNumb) {
-        List <Passenger> list =  passengerRepository.getPassengerByFlightNumb(flightNumb);
-        return list.toString();
-    }
-
-}
-
 

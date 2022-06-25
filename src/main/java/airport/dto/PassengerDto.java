@@ -27,22 +27,22 @@ public class PassengerDto {
                 .surname(this.surname)
                 .build();
     }
-
- public Passenger fromDTOToPassenger(PassengerDto requestPassengerDto) {
-        return Passenger.builder()
-                .name(requestPassengerDto.getName())
-                .passport(requestPassengerDto.passport)
-                .surname(requestPassengerDto.getSurname())
-                .birthdate(requestPassengerDto.getBirthdate())
-                .build();
- }
-
- public PassengerDto fromPassengerToDTO (Passenger passenger) {
-        return PassengerDto.builder()
-                .name(passenger.getName())
-                .surname(passenger.getSurname())
-                .passport(passenger.getPassport())
-                .birthdate(passenger.getBirthdate())
-                .build();
- }
 }
+
+//    public Passenger fromDTOToPassenger(PassengerDto requestPassengerDto) {
+//        return Passenger.builder()
+//                .name(requestPassengerDto.getName())
+//                .passport(requestPassengerDto.passport)
+//                .surname(requestPassengerDto.getSurname())
+//                .birthdate(requestPassengerDto.getBirthdate())
+//                .build();
+//    }
+//
+//    public PassengerDto fromPassengerToDTO (Passenger passenger) {
+//        return PassengerDto.builder()
+//                .name(passenger.getName())
+//                .surname(passenger.getSurname())
+//                .passport(passenger.getPassport())
+//                .birthdate(passenger.getBirthdate())
+//                .build();
+//    }

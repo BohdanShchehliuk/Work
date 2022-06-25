@@ -26,10 +26,10 @@ public class Flight {
     @ManyToOne
     @JoinColumn(name = "terminal_id")
     private Terminal terminal;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "avialine_id")
     private Airline airline;
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "craft_id")
     private Aircraft aircraft;
     @Column(name = "gate_id")

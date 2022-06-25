@@ -18,10 +18,10 @@ public class Aircraft {
     private int id;
     @JoinColumn(name = "serial_number")
     private int serialNumber;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "airline_id")
     private Airline airline;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "aircraft_type_id", referencedColumnName = "id")
     private AircraftTypes aircraftTypes;
 

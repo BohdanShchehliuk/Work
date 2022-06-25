@@ -25,4 +25,6 @@ public interface TicketService {
 
     TicketDto byTicket(PassengerDto passengerDto, int flightId);
 
+    List<Ticket> findTicketsByFlightNumb(int flightNumb);
+
 }

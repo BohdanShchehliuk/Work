@@ -12,25 +12,22 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 
 public class TicketController {
-    TicketRepository ticketRepository;
-    public TicketService ticketService;
-    ModelMapper modelMapper;
+    private TicketService ticketService;
+    private ModelMapper modelMapper;
 
     @GetMapping("/tickets/by/flight")
     public String getAllByFlightNumb(@RequestParam int flightNumb) {
-        return ticketRepository.findTicketsByFlightNumb(flightNumb).toString();
+        return ticketService.findTicketsByFlightNumb(flightNumb).toString();
     }
 
     @PostMapping("/ticket/bay/")
     public String byTicket(@RequestBody PassengerDto passengerDto, @RequestParam int flightId) {
-
         TicketDto ticketDto = ticketService.byTicket(passengerDto, flightId);
-
         return "Passenger" + passengerDto + "by a new ticket " + ticketDto;
     }
+}
 
-
-//
+// For Example
 //    @RequestBody
 //    {
 //        "passport": "s2134",
@@ -41,7 +38,3 @@ public class TicketController {
 //    }
 //@RequestParam
 //    flightId = 8
-
-}
-
-
