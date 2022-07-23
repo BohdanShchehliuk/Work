@@ -1,6 +1,6 @@
 package airport.service.impl;
 
-import airport.dto.FlightDto;
+
 import airport.entity.Flight;
 import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
@@ -8,15 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import airport.repository.FlightRepository;
 
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class FlightServiceImpl implements airport.service.FlightService {
     private Session session;
-    private ModelMapper modelMapper = new ModelMapper();
+    private ModelMapper mapperToDTO = new ModelMapper();
     @Autowired
     private FlightRepository flightRepository;
 
@@ -29,14 +28,10 @@ public class FlightServiceImpl implements airport.service.FlightService {
         return flightRepository.findAll();
     }
 
+    //Метод, який дозволяє шукати польоти між датами безпосередньо у БД
     @Override
-    public List<FlightDto> getAllFomDataAtoDataB(LocalDate startData, LocalDate finishData) {
-        return getAll().stream().
-                filter(flight -> flight.getTime().toLocalDate().isAfter(startData) &&
-                        flight.getTime().toLocalDate().isBefore(finishData))
-                .map(flight -> modelMapper
-                        .map(flight, FlightDto.class))
-                .collect(Collectors.toList());
+    public List<Flight> getAllFlightsFromStartDataToFinishData(LocalDateTime startData, LocalDateTime finishData) {
+        return flightRepository.getAllFlightsFromStartDataToFinishData(startData, finishData);
     }
 
     @Override
@@ -44,10 +39,12 @@ public class FlightServiceImpl implements airport.service.FlightService {
         return flightRepository.findFlightByFlightNumb(flight_numb);
     }
 }
-
-//    Date dateOne = Date.from(startData.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//    Date dateTwo = Date.from(startData.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//
-//    NativeQuery query = (NativeQuery) session.createQuery("\"from Flight f where f.time > ?"+dateOne+" and " +
-//            "f.time < ?"+dateTwo+"\"");
-//    List<FlightDto> list = query.list();
+//Метод, який дозволяє шукати польоти між датами через програму (не через БД)
+// public List<Flight> getAllFlightsFromStartDataToFinishData(LocalDateTime startData, LocalDateTime finishData) {
+//      return flightRepository.getAllFlightsFromStartDataToFinishData(startData, finishData);
+//                getAll().stream().
+//                filter(flight -> flight.getTime().toLocalDate().isAfter(startData) &&
+//                        flight.getTime().toLocalDate().isBefore(finishData))
+//                .map(flight -> mapperToDTO
+//                        .map(flight, FlightDto.class))
+//                .collect(Collectors.toList());

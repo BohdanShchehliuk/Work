@@ -22,8 +22,8 @@ import java.util.stream.IntStream;
 public class TicketServiceImpl implements TicketService {
     private ModelMapper modelMapper;
     @Autowired
-    TicketRepository ticketRepository;
-    FlightRepository flightRepository;
+    public TicketRepository ticketRepository;
+    public FlightRepository flightRepository;
 
     @Override
     public Ticket addTicket(Ticket ticket) {

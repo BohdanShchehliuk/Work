@@ -2,7 +2,6 @@ package airport.controller;
 
 import airport.dto.PassengerDto;
 import airport.entity.Passenger;
-import airport.repository.PassengerRepository;
 import airport.service.PassengerService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,23 +15,24 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PassengerController {
     private PassengerService passengerService;
-    private ModelMapper modelMapper;
+    private ModelMapper mapToEntity;
+    private ModelMapper mapToDTO;
 
     @PostMapping("/passenger/post/")
     public String savePassenger(@RequestBody PassengerDto passenger) {
-        passengerService.addPassenger(modelMapper.map(passenger, Passenger.class));
+        passengerService.addPassenger(mapToEntity.map(passenger, Passenger.class));
         return "You add a new passenger from Front End";
     }
 
     @GetMapping("/passenger/create/")
-    public PassengerDto create() {
+    public String create(String passengerName, String passengerSurname, String passengerPassport) {
 
-        return PassengerDto.builder()
-                .name("Chak")
-                .surname("Noris")
-                .passport("s2134")
+        PassengerDto passengerDto = PassengerDto.builder()
+                .name(passengerName)
+                .surname(passengerSurname)
+                .passport(passengerPassport)
                 .build();
-
+        return savePassenger(passengerDto);
     }
 
     @PostMapping("/passenger/delete/")
@@ -45,7 +45,7 @@ public class PassengerController {
     @GetMapping("/passenger/getbypassport/")
     public Optional<PassengerDto> getByPassport(@RequestParam String passport) {
         Passenger passenger = passengerService.getPassengerByPassport(passport);
-        return Optional.ofNullable(modelMapper.map(passenger, PassengerDto.class));
+        return Optional.ofNullable(mapToDTO.map(passenger, PassengerDto.class));
     }
 
     @GetMapping("/passenger/allpassengerbyflightnumber/")
@@ -54,15 +54,5 @@ public class PassengerController {
         return list.toString();
     }
 }
-//    For Example
-//    {
-//        "passport": "s2134",
-//            "surname": "Noris",
-//            "name": "Chak",
-//            "birthdate": null
-//    }
-//    @GetMapping("/passenger/getbypassport/")
-//    public Optional<RequestPassengerDto> getbypassport(@RequestParam String passport) {
-//return passengerService.getPassengerByPassport(passport);
-//    }
+
 

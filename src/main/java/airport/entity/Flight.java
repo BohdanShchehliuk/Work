@@ -1,5 +1,6 @@
 package airport.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,7 +30,8 @@ public class Flight {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "avialine_id")
     private Airline airline;
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "craft_id")
     private Aircraft aircraft;
     @Column(name = "gate_id")
@@ -44,11 +46,6 @@ public class Flight {
                 "id=" + id +
                 ", flightNumb=" + flightNumb +
                 ", time=" + time +
-                ", flightStatus=" + flightStatus +
-//             /   ", terminal=" + terminal.getName() +
-//                ", avialineId=" + airline.getName() +
-//                ", craft=" + "model: " + aircraft.getAircraftTypes().getType() + " numb: " + aircraft.getSerialNumber() +
-//                ", gateId=" + gateId + "rout = " + routes.getRoute()+
-                '}';
+                ", flightStatus=" + flightStatus + '}';
     }
 }
