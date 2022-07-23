@@ -2,7 +2,6 @@ package airport.service;
 
 import airport.entity.Flight;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 
