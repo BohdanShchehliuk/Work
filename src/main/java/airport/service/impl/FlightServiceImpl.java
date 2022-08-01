@@ -2,6 +2,7 @@ package airport.service.impl;
 
 
 import airport.entity.Flight;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.util.List;
 
 
 @Service
+@Slf4j
 public class FlightServiceImpl implements airport.service.FlightService {
     private Session session;
     private ModelMapper mapperToDTO = new ModelMapper();
@@ -20,6 +22,7 @@ public class FlightServiceImpl implements airport.service.FlightService {
     private FlightRepository flightRepository;
 
     public Flight addFlight(Flight flight) {
+
         return flightRepository.save(flight);
     }
 
