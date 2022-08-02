@@ -25,19 +25,19 @@ public class PassengerController {
 
     @PostMapping("/passenger/post/")
     public String savePassenger(@RequestBody PassengerDto passenger) {
-        LOG.info("Service /passenger/post/ started work");
+        LOG.info("Controller /passenger/post/ started work");
         try {
             passengerService.addPassenger(mapToEntity.map(passenger, Passenger.class));
             return "You add a new passenger from Front End";
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /passenger/post/ does not answer");
+            LOG.error(ANSI_RED + "Controller /passenger/post/ does not answer");
             throw new CustomException("/passenger/post/", " is not correct");
         }
     }
 
     @GetMapping("/passenger/create/")
     public String create(String passengerName, String passengerSurname, String passengerPassport) {
-        LOG.info("Service /passenger/create/ started work");
+        LOG.info("Controller /passenger/create/ started work");
         try {
             PassengerDto passengerDto = PassengerDto.builder()
                     .name(passengerName)
@@ -46,44 +46,44 @@ public class PassengerController {
                     .build();
             return savePassenger(passengerDto);
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /passenger/create/ does not answer");
+            LOG.error(ANSI_RED + "Controller /passenger/create/ does not answer");
             throw new CustomException("/passenger/create/", " is not correct");
         }
     }
 
     @PostMapping("/passenger/delete/")
     public String deletePassenger(@RequestParam String passport) throws Exception {
-        LOG.info("Service /passenger/delete/ started work");
+        LOG.info("Controller /passenger/delete/ started work");
         try {
             if (passengerService.delete(passport).equals("success"))
                 return "You have deleted a passenger ";
             return "There is no such passenger";
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /passenger/delete/ does not answer");
+            LOG.error(ANSI_RED + "Controller /passenger/delete/ does not answer");
             throw new CustomException("/passenger/delete/", " is not correct");
         }
     }
 
     @GetMapping("/passenger/getbypassport/")
     public Optional<PassengerDto> getByPassport(@RequestParam String passport) {
-        LOG.info("Service /passenger/getbypassport/ started work");
+        LOG.info("Controller /passenger/getbypassport/ started work");
         try {
             Passenger passenger = passengerService.getPassengerByPassport(passport);
             return Optional.ofNullable(mapToDTO.map(passenger, PassengerDto.class));
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /passenger/getbypassport/ does not answer");
+            LOG.error(ANSI_RED + "Controller /passenger/getbypassport/ does not answer");
             throw new CustomException("/passenger/getbypassport/", " is not correct");
         }
     }
 
     @GetMapping("/passenger/allpassengerbyflightnumber/")
     public String getPassengerByFlightNumb(@RequestParam int flightNumb) {
-        LOG.info("Service /passenger/allpassengerbyflightnumber/ started work");
+        LOG.info("Controller /passenger/allpassengerbyflightnumber/ started work");
         try {
             List<Passenger> list = passengerService.getPassengerByFlightNumb(flightNumb);
             return list.toString();
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /passenger/allpassengerbyflightnumber/ does not answer");
+            LOG.error(ANSI_RED + "Controller /passenger/allpassengerbyflightnumber/ does not answer");
             throw new CustomException("/passenger/allpassengerbyflightnumber/", " is not correct");
         }
     }

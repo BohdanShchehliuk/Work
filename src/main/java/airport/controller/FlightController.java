@@ -26,12 +26,12 @@ public class FlightController {
 
     @PostMapping("/flight/post/")
     public String saveFlight(@RequestBody FlightDto flightDto) {
-        LOG.info("Service /flight/post/ started work");
+        LOG.info("Controller /flight/post/ started work");
         try {
             flightService.addFlight(mapToEntity.map(flightDto, Flight.class));
             return "You add a new flight ";
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /flight/post/ does not answer");
+            LOG.error(ANSI_RED + "Controller /flight/post/ does not answer");
             throw new CustomException("/flight/post/", " is not correct");
         }
     }
@@ -40,31 +40,31 @@ public class FlightController {
 
     private String getAllFomDataAtoDataB(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startData,
                                          @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData) {
-        LOG.info("Service /flight/data/between/ started work");
+        LOG.info("Controller /flight/data/between/ started work");
         try {
             LocalDateTime start = startData.atStartOfDay();
             LocalDateTime finish = finishData.atStartOfDay();
             return flightService.getAllFlightsFromStartDataToFinishData(start, finish).toString();
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /flight/data/between/ does not answer");
+            LOG.error(ANSI_RED + "Controller /flight/data/between/ does not answer");
             throw new CustomException("/flight/data/between/", " is not correct");
         }
     }
 
     @GetMapping("/flight/get/tickets/")
     public FlightDto getByNumber(@RequestParam int flightNumb) {
-        LOG.info("Service /flight/get/tickets/ started work");
+        LOG.info("Controller /flight/get/tickets/ started work");
         try {
             return mapToDTO.map(flightService.findFlightByFlightNumb(flightNumb), FlightDto.class);
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /flight/get/tickets/ does not answer");
+            LOG.error(ANSI_RED + "Controller /flight/get/tickets/ does not answer");
             throw new CustomException("/flight/get/tickets/", " is not correct");
         }
     }
 
     @GetMapping("/flight/create/")
     public FlightDto create() {
-        LOG.info("Service /flight/create/ started work");
+        LOG.info("Controller /flight/create/ started work");
         try {
             return FlightDto.builder()
                     .flightNumb(12121)
@@ -81,11 +81,10 @@ public class FlightController {
                             .build())
                     .build();
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /flight/create/  does not answer");
+            LOG.error(ANSI_RED + "Controller /flight/create/  does not answer");
             throw new CustomException("/flight/create/", " is not correct");
         }
     }
-
 }
 
 

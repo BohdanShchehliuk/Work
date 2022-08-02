@@ -19,23 +19,23 @@ public class TicketController {
 
     @GetMapping("/tickets/by/flight")
     public String getAllByFlightNumb(@RequestParam int flightNumb) {
-        LOG.info("Service /tickets/by/flight started work");
+        LOG.info("Controller /tickets/by/flight started work");
         try {
             return ticketService.findTicketsByFlightNumb(flightNumb).toString();
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /tickets/by/flight/ does not answer");
+            LOG.error(ANSI_RED + "Controller /tickets/by/flight/ does not answer");
             throw new CustomException("/tickets/by/flight/", " is not correct");
         }
     }
 
     @PostMapping("/ticket/bay/")
     public String byTicket(@RequestBody PassengerDto passengerDto, @RequestParam int flightId) {
-        LOG.info("Service /ticket/bay/ started work");
+        LOG.info("Controller /ticket/bay/ started work");
         try {
             TicketDto ticketDto = ticketService.byTicket(passengerDto, flightId);
             return "Passenger" + passengerDto + "by a new ticket   " + ticketDto;
         } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Service /ticket/bay/ does not answer");
+            LOG.error(ANSI_RED + "Controller /ticket/bay/ does not answer");
             throw new CustomException("/ticket/bay/", " is not correct");
         }
     }
