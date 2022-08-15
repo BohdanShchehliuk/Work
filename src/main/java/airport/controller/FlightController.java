@@ -4,86 +4,69 @@ package airport.controller;
 import airport.dto.FlightDto;
 import airport.entity.*;
 import airport.exception.CustomException;
+import airport.exception.UserAlreadyExistException;
+import airport.exception.UserNotFoundException;
 import airport.service.impl.FlightServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
 public class FlightController {
     private ModelMapper mapToEntity;
     private ModelMapper mapToDTO;
     private FlightServiceImpl flightService;
-    private static final Logger LOG = LoggerFactory.getLogger(FlightController.class);
     public static final String ANSI_RED = "\u001B[31m";
 
-    @PostMapping("/flight/post/")
-    public String saveFlight(@RequestBody FlightDto flightDto) {
-        LOG.info("Controller /flight/post/ started work");
-        try {
-            flightService.addFlight(mapToEntity.map(flightDto, Flight.class));
-            return "You add a new flight ";
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Controller /flight/post/ does not answer");
-            throw new CustomException("/flight/post/", " is not correct");
-        }
+    @PostMapping("/flight/create/")
+    public String saveFlight(@RequestBody FlightDto flightDto) throws UserAlreadyExistException {
+        log.info("Controller /flight/create/ started work");
+        if (flightDto.equals(null)) throw new CustomException("Type flight again");
+        flightService.addFlight(mapToEntity.map(flightDto, Flight.class));
+        return "You add a new flight ";
     }
 
     @GetMapping("/flight/data/between/")
 
     private String getAllFomDataAtoDataB(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startData,
-                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData) {
-        LOG.info("Controller /flight/data/between/ started work");
-        try {
-            LocalDateTime start = startData.atStartOfDay();
-            LocalDateTime finish = finishData.atStartOfDay();
-            return flightService.getAllFlightsFromStartDataToFinishData(start, finish).toString();
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Controller /flight/data/between/ does not answer");
-            throw new CustomException("/flight/data/between/", " is not correct");
-        }
+                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData) throws UserNotFoundException {
+        log.info("Controller /flight/data/between/ started work");
+        LocalDateTime start = startData.atStartOfDay();
+        LocalDateTime finish = finishData.atStartOfDay();
+        return flightService.getAllFlightsFromStartDataToFinishData(start, finish).toString();
     }
 
     @GetMapping("/flight/get/tickets/")
-    public FlightDto getByNumber(@RequestParam int flightNumb) {
-        LOG.info("Controller /flight/get/tickets/ started work");
-        try {
-            return mapToDTO.map(flightService.findFlightByFlightNumb(flightNumb), FlightDto.class);
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Controller /flight/get/tickets/ does not answer");
-            throw new CustomException("/flight/get/tickets/", " is not correct");
-        }
+    public FlightDto getByNumber(@RequestParam int flightNumb) throws Exception {
+        log.info("Controller /flight/get/tickets/ started work");
+        if (flightNumb <= 0) throw new CustomException("Type flight_number again");
+        return mapToDTO.map(flightService.findFlightByFlightNumb(flightNumb), FlightDto.class);
     }
 
     @GetMapping("/flight/create/")
     public FlightDto create() {
-        LOG.info("Controller /flight/create/ started work");
-        try {
-            return FlightDto.builder()
-                    .flightNumb(12121)
-                    .flightStatus(1)
-                    .time(LocalDateTime.now())
-                    .aircraft(Aircraft.builder()
-                            .aircraftTypes(AircraftTypes.builder()
-                                    .capacity(300)
-                                    .produser("Nokia")
-                                    .build())
-                            .airline(Airline.builder()
-                                    .name("Kentyky")
-                                    .build())
-                            .build())
-                    .build();
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Controller /flight/create/  does not answer");
-            throw new CustomException("/flight/create/", " is not correct");
-        }
+        log.info("Controller /flight/create/ started work");
+        return FlightDto.builder()
+                .flightNumb(12121)
+                .flightStatus(1)
+                .time(LocalDateTime.now())
+                .aircraft(Aircraft.builder()
+                        .aircraftTypes(AircraftTypes.builder()
+                                .capacity(300)
+                                .produser("Nokia")
+                                .build())
+                        .airline(Airline.builder()
+                                .name("Kentyky")
+                                .build())
+                        .build())
+                .build();
     }
 }
 

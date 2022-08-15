@@ -2,42 +2,30 @@ package airport.controller;
 
 import airport.dto.PassengerDto;
 import airport.dto.TicketDto;
-import airport.exception.CustomException;
+import airport.exception.UserNotFoundException;
 import airport.service.TicketService;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @AllArgsConstructor
-
 public class TicketController {
     private TicketService ticketService;
-    private static final Logger LOG = LoggerFactory.getLogger(PassengerController.class);
     public static final String ANSI_RED = "\u001B[31m";
 
     @GetMapping("/tickets/by/flight")
-    public String getAllByFlightNumb(@RequestParam int flightNumb) {
-        LOG.info("Controller /tickets/by/flight started work");
-        try {
-            return ticketService.findTicketsByFlightNumb(flightNumb).toString();
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Controller /tickets/by/flight/ does not answer");
-            throw new CustomException("/tickets/by/flight/", " is not correct");
-        }
+    public String getAllByFlightNumb(@RequestParam int flightNumb) throws UserNotFoundException {
+        log.info("Controller /tickets/by/flight started work");
+        return ticketService.findTicketsByFlightNumb(flightNumb).toString();
     }
 
     @PostMapping("/ticket/bay/")
-    public String byTicket(@RequestBody PassengerDto passengerDto, @RequestParam int flightId) {
-        LOG.info("Controller /ticket/bay/ started work");
-        try {
-            TicketDto ticketDto = ticketService.byTicket(passengerDto, flightId);
-            return "Passenger" + passengerDto + "by a new ticket   " + ticketDto;
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Controller /ticket/bay/ does not answer");
-            throw new CustomException("/ticket/bay/", " is not correct");
-        }
+    public String byTicket(@RequestBody PassengerDto passengerDto, @RequestParam int flightId) throws UserNotFoundException {
+        log.info("Controller /ticket/bay/ started work");
+        TicketDto ticketDto = ticketService.byTicket(passengerDto, flightId);
+        return "Passenger" + passengerDto + "by a new ticket   " + ticketDto;
     }
 }
 

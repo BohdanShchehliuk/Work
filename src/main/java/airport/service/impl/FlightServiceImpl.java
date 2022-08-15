@@ -1,82 +1,65 @@
 package airport.service.impl;
 
 
-import airport.controller.PassengerController;
 import airport.entity.Flight;
-
 import airport.exception.CustomException;
+import airport.exception.UserAlreadyExistException;
+import airport.exception.UserNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import airport.repository.FlightRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-
+@Slf4j
 @Service
 public class FlightServiceImpl implements airport.service.FlightService {
     private Session session;
     private ModelMapper mapperToDTO = new ModelMapper();
-    private static final Logger LOG = LoggerFactory.getLogger(FlightServiceImpl.class);
-    public static final String ANSI_RED = "\u001B[31m";
 
     @Autowired
     private FlightRepository flightRepository;
 
-    public Flight addFlight(Flight flight) {
-        LOG.debug("Service / Flight addFlight/ started work");
-        try {
-            return flightRepository.save(flight);
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + " flightRepository.save(flight)  does not answer");
-            throw new CustomException(" flightRepository.save(flight)", " is not correct");
-        }
+    public Flight addFlight(Flight flight) throws UserAlreadyExistException, CustomException {
+        log.debug("Service / Flight addFlight/ started work");
+        if (flight.getAircraft().equals(null) || flight.getTime().toLocalTime().isBefore(LocalDateTime.now().toLocalTime()))
+            throw new CustomException("Can't be added. Check crafts and time");
+        Optional<Flight> flight1 = Optional.ofNullable(flightRepository.findFlightByFlightNumb(flight.getFlightNumb()));
+        if (!flight1.isEmpty()) throw new UserAlreadyExistException(flight.getId(), "This flight is already existed");
+        return flightRepository.save(flight);
     }
 
+
     @Override
-    public List<Flight> getAll() {
-        LOG.debug("Service /List<Flight> getAll()/ started work");
-        try {
-            return flightRepository.findAll();
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "flightRepository.findAll()  does not answer");
-            throw new CustomException("flightRepository.findAll()", " is not correct");
-        }
+    public List<Flight> getAll() throws UserNotFoundException {
+        log.info("Service /List<Flight> getAll()/ started work");
+        List<Flight> list = flightRepository.findAll();
+        if (list.isEmpty()) throw new UserNotFoundException("Flights list is empty");
+        return list;
     }
+
 
     //Метод, який дозволяє шукати польоти між датами безпосередньо у БД
     @Override
-    public List<Flight> getAllFlightsFromStartDataToFinishData(LocalDateTime startData, LocalDateTime finishData) {
-        LOG.debug("Service /List<Flight> getAllFlightsFromStartDataToFinishData/ started work");
-        try {
-            return flightRepository.getAllFlightsFromStartDataToFinishData(startData, finishData);
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "List<Flight> getAllFlightsFromStartDataToFinishData/  does not answer");
-            throw new CustomException("flightRepository.getAllFlightsFromStartDataToFinishData", " is not correct");
-        }
+    public List<Flight> getAllFlightsFromStartDataToFinishData(LocalDateTime startData, LocalDateTime finishData)
+            throws UserNotFoundException, CustomException {
+        log.info("Service /List<Flight> getAllFlightsFromStartDataToFinishData/ started work");
+        List<Flight> list = flightRepository.getAllFlightsFromStartDataToFinishData(startData, finishData);
+        if (startData.isAfter(finishData)) throw new CustomException("StartData is after FinishData");
+        if (list.isEmpty()) throw new UserNotFoundException("Flights list is empty");
+        return list;
     }
 
     @Override
-    public Flight findFlightByFlightNumb(int flight_numb) {
-        LOG.debug("Service /Flight findFlightByFlightNumb/ started work");
-        try {
-            return flightRepository.findFlightByFlightNumb(flight_numb);
-        } catch (Exception exception) {
-            LOG.error(ANSI_RED + "Flight findFlightByFlightNumb/  does not answer");
-            throw new CustomException("flightRepository.findFlightByFlightNumb", " is not correct");
-        }
+    public Optional<Flight> findFlightByFlightNumb(int flight_numb) throws UserNotFoundException {
+        log.info("Service /Flight findFlightByFlightNumb/ started work");
+        Optional<Flight> flight = Optional.ofNullable(flightRepository.findFlightByFlightNumb(flight_numb));
+        if (flight.isEmpty()) throw new UserNotFoundException("This Flight numb " + flight_numb + " is absent");
+        return flight;
     }
 }
-//Метод, який дозволяє шукати польоти між датами через програму (не через БД)
-// public List<Flight> getAllFlightsFromStartDataToFinishData(LocalDateTime startData, LocalDateTime finishData) {
-//      return flightRepository.getAllFlightsFromStartDataToFinishData(startData, finishData);
-//                getAll().stream().
-//                filter(flight -> flight.getTime().toLocalDate().isAfter(startData) &&
-//                        flight.getTime().toLocalDate().isBefore(finishData))
-//                .map(flight -> mapperToDTO
-//                        .map(flight, FlightDto.class))
-//                .collect(Collectors.toList());
