@@ -2,6 +2,7 @@ package airport.service.impl;
 
 import airport.dto.PassengerDto;
 import airport.dto.TicketDto;
+import airport.enam.TicketStatus;
 import airport.entity.*;
 import airport.exception.CustomException;
 import airport.exception.UserAlreadyExistException;
@@ -16,7 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,13 +32,15 @@ public class TicketServiceImpl implements TicketService {
     public TicketRepository ticketRepository;
     @Autowired
     public FlightRepository flightRepository;
+    TicketStatus status;
 
     @Override
     public Ticket addTicket(Ticket ticket) throws UserAlreadyExistException {
         log.info("Service / Ticket addTicket(Ticket ticket)/ started work");
-            Optional <List <Ticket>> list = Optional.ofNullable(ticketRepository.findTicketsByFlightNumb(ticket.getNumber()));
-       if (!list.isEmpty())
+        Optional<List<Ticket>> list = Optional.ofNullable(ticketRepository.findTicketsByFlightNumb(ticket.getNumber()));
+        if (!list.isEmpty()) {
             throw new UserAlreadyExistException(ticket.getId(), "Ticket already exists");
+        }
         return ticketRepository.save(ticket);
     }
 
@@ -50,13 +52,15 @@ public class TicketServiceImpl implements TicketService {
         AircraftTypes aircraftTypes = aircraft.getAircraftTypes();
         List<Ticket> ticketList = IntStream.range(1, aircraftTypes.getCapacity())
                 .mapToObj(seat -> Ticket.builder()
-                        .ticketStaus(TICKET_STATUS_NOT_SOLD)
+                        .ticketStaus(status.TICKET_STATUS_NOT_SOLD.getStatus())
                         .number(flight.hashCode() + seat)
                         .seat(seat)
                         .flightId(flight)
                         .build())
                 .collect(Collectors.toList());
-        if (ticketList.isEmpty()) throw new CustomException("tickets is not added");
+        if (ticketList.isEmpty()) {
+            throw new CustomException("tickets is not added");
+        }
         ticketRepository.saveAll(ticketList);
         return ticketList;
     }
@@ -75,10 +79,12 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> getAllFreeTickets(int flightId) throws UserNotFoundException {
         log.info("Service / List<Ticket> getAllFreeTickets/ started work");
 
-        List<Ticket> list = ticketRepository.findAll().stream().filter(ticket -> (ticket.getTicketStaus() == TICKET_STATUS_NOT_SOLD &&
+        List<Ticket> list = ticketRepository.findAll().stream().filter(ticket -> (ticket.getTicketStaus() == status.TICKET_STATUS_SOLD.getStatus() &&
                         ticket.getFlightId().getId() == flightId))
                 .collect(Collectors.toList());
-        if (list.isEmpty()) throw new UserNotFoundException("There are no fre tickets");
+        if (list.isEmpty()) {
+            throw new UserNotFoundException("There are no fre tickets");
+        }
         return list;
     }
 
@@ -91,15 +97,15 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketDto byTicket(PassengerDto passengerDto, int flightId) throws UserNotFoundException {
         log.info("Service / TicketDto byTicket / started work");
-      Optional < Flight> flight = (flightRepository.findById(flightId));
-    //       Optional<Flight> flight = Optional.ofNullable(flightRepository.findFlightByFlightNumb(flight_numb));
-             if(flight.isEmpty())
+        Optional<Flight> flight = (flightRepository.findById(flightId));
+        if (flight.isEmpty()) {
             throw new CustomException("There is no such flight");
+        }
         Ticket ticket = getFirstNonSoldFomFlight(flightId);
         modelMapper = new ModelMapper();
         Passenger passenger = modelMapper.map(passengerDto, Passenger.class);
         ticket.setPassenger(modelMapper.map(passengerDto, Passenger.class));
-        ticket.setTicketStaus(TICKET_STATUS_SOLD);
+        ticket.setTicketStaus(status.TICKET_STATUS_SOLD.getStatus());
         ticketRepository.saveAndFlush(ticket);
         TicketDto ticketDto = new TicketDto();
         return modelMapper.map(ticket, TicketDto.class);
@@ -109,7 +115,9 @@ public class TicketServiceImpl implements TicketService {
     public List<Ticket> findTicketsByFlightNumb(int flightNumb) throws UserNotFoundException {
         log.info("Service / List<Ticket> findTicketsByFlightNumb / started work");
         List<Ticket> list = ticketRepository.findTicketsByFlightNumb(flightNumb);
-        if (list.isEmpty()) throw new UserNotFoundException("There are no tickets in flightNumb " + flightNumb);
+        if (list.isEmpty()) {
+            throw new UserNotFoundException("There are no tickets in flightNumb " + flightNumb);
+        }
         return list;
     }
 }

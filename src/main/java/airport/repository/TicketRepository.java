@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
- @Query("from Ticket t LEFT JOIN FETCH t.flightId f where f.flightNumb =?1")
-   List<Ticket> findTicketsByFlightNumb(int flightNumb);
+    @Query("from Ticket t LEFT JOIN FETCH t.flightId f where f.flightNumb =?1")
+    List<Ticket> findTicketsByFlightNumb(int flightNumb);
 }

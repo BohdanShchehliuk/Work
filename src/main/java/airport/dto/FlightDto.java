@@ -28,19 +28,4 @@ public class FlightDto {
                 .time(this.time)
                 .build();
     }
-//    {
-//        "flightNumb": 12121,
-//            "flightStatus": 1,
-//            "aircraft": {
-//        "id": 0,
-//                "serialNumber": 0,
-//                "airline": null,
-//                "aircraftTypes": {
-//            "id": 0,
-//                    "produser": "Nokia",
-//                    "type": null,
-//                    "capacity": 300
-//        }
-//    }
-//    }
 }

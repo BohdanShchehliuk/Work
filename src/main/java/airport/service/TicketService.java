@@ -2,6 +2,7 @@ package airport.service;
 
 import airport.dto.PassengerDto;
 import airport.dto.TicketDto;
+import airport.enam.TicketStatus;
 import airport.entity.Flight;
 import airport.entity.Ticket;
 import airport.exception.UserAlreadyExistException;
@@ -10,10 +11,6 @@ import airport.exception.UserNotFoundException;
 import java.util.List;
 
 public interface TicketService {
-    int TICKET_STATUS_NOT_SOLD = 0;
-    int TICKET_STATUS_SOLD = 1;
-    int TICKET_STATUS_BOARDED = 2;
-    int TICKET_STATUS_FINISHED = 3;
 
     Ticket addTicket(Ticket ticket) throws UserAlreadyExistException;
 

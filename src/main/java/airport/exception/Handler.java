@@ -14,14 +14,14 @@ public class Handler {
     @ExceptionHandler(CustomException.class)
     @ResponseBody
     public ResponseEntity<Object> customException(CustomException ex) {
-        log.error(ANSI_RED+ex.getMessage());
+        log.error(ANSI_RED+ " "+ ex.getMessage()+ " ");
         return new ResponseEntity(ex.getExceptionMassage(),HttpStatus.EXPECTATION_FAILED);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseBody
     public ResponseEntity<Object> userNotFoundException(UserNotFoundException ex) {
-        log.error(ANSI_RED+ex.getExceptionMassage());
+        log.error(ANSI_RED+ " "+ex.getExceptionMassage()+ " ");
 
        return new ResponseEntity(ex.getExceptionMassage(), HttpStatus.NOT_FOUND);
     }
@@ -30,7 +30,7 @@ public class Handler {
     @ExceptionHandler(UserAlreadyExistException.class)
     @ResponseBody
     public ResponseEntity<Object> userAlreadyExistException(UserAlreadyExistException ex) {
-        log.error(ANSI_RED+ex.getExceptionMassage());
+        log.error(ANSI_RED+ " "+ex.getExceptionMassage()+ " ");
         return new ResponseEntity(ex.getExceptionMassage(),HttpStatus.CONFLICT);
     }
 

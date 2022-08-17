@@ -34,7 +34,6 @@ public class Passenger {
                 ", surname='" + surname + '\'' +
                 ", name='" + name + '\'' +
                 ", birthdate=" + birthdate +
-
                 '}';
     }
 }

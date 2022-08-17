@@ -19,7 +19,7 @@ public class Personal {
     private String name;
     @Column(name = "numb_phone")
     private int numbPhone;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "gate_id")
     private Gate gate;
     @OneToOne

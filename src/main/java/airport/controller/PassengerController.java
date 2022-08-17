@@ -49,18 +49,17 @@ public class PassengerController {
     }
 
     @GetMapping("/passenger/getbypassport/")
-    public Optional<PassengerDto> getByPassport(@RequestParam String passport) throws UserNotFoundException {
+    public PassengerDto getByPassport(@RequestParam String passport) throws UserNotFoundException {
         log.info("Controller /passenger/getbypassport/ started work");
         Passenger passenger = passengerService.getPassengerByPassport(passport);
-        return Optional.ofNullable(mapToDTO.map(passenger, PassengerDto.class));
+        return mapToDTO.map(passenger, PassengerDto.class);
     }
 
     @GetMapping("/passenger/allpassengerbyflightnumber/")
     public String getPassengerByFlightNumb(@RequestParam int flightNumb) throws UserNotFoundException {
         log.info("Controller /passenger/allpassengerbyflightnumber/ started work");
         if (flightNumb <= 0) throw new CustomException("Type flight_number again");
-        List<Passenger> list = passengerService.getPassengerByFlightNumb(flightNumb);
-        return list.toString();
+        return passengerService.getPassengerByFlightNumb(flightNumb).toString();
     }
 }
 

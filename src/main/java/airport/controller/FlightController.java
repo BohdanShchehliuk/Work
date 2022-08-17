@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -35,12 +36,12 @@ public class FlightController {
 
     @GetMapping("/flight/data/between/")
 
-    private String getAllFomDataAtoDataB(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startData,
-                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData) throws UserNotFoundException {
+    private List<Flight> getAllFomDataAtoDataB(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startData,
+                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate finishData) throws UserNotFoundException {
         log.info("Controller /flight/data/between/ started work");
         LocalDateTime start = startData.atStartOfDay();
         LocalDateTime finish = finishData.atStartOfDay();
-        return flightService.getAllFlightsFromStartDataToFinishData(start, finish).toString();
+        return flightService.getAllFlightsFromStartDataToFinishData(start, finish);
     }
 
     @GetMapping("/flight/get/tickets/")

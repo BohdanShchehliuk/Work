@@ -11,8 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 public class TicketDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private int flightId;
     private int seat;
