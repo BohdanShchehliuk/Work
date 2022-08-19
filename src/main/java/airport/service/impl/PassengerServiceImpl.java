@@ -1,17 +1,15 @@
 package airport.service.impl;
 
-import airport.dto.PassengerDto;
-import airport.entity.Flight;
 import airport.entity.Passenger;
 import airport.exception.CustomException;
 import airport.exception.UserAlreadyExistException;
 import airport.exception.UserNotFoundException;
 import airport.repository.PassengerRepository;
 import airport.service.PassengerService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +20,7 @@ import java.util.Optional;
 public class PassengerServiceImpl implements PassengerService {
     private ModelMapper mapperToDTO = new ModelMapper();
     @Autowired
+
     public PassengerRepository passengerRepository;
     @Autowired
     public FlightServiceImpl flightService;
@@ -65,7 +64,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     public String delete(String passport) throws UserNotFoundException {
         log.info("Service /String delete (String passport)/ started work");
-        if (passengerRepository.findAll()
+                if (passengerRepository.findAll()
                 .stream()
                 .filter(p -> p.getPassport().equals(passport))
                 .findFirst().isEmpty()) {
