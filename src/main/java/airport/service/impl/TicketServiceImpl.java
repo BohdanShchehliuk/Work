@@ -120,4 +120,14 @@ public class TicketServiceImpl implements TicketService {
         }
         return list;
     }
+
+    @Override
+    public List<Ticket> getAll() throws UserNotFoundException {
+        log.info("Service / List<Ticket> getAll() / started work");
+        List<Ticket> list = ticketRepository.findAll();
+        if (list.isEmpty()) {
+            throw new UserNotFoundException("There are no tickets");
+        }
+        return list;
+    }
 }

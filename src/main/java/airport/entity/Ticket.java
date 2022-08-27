@@ -21,7 +21,7 @@ public class Ticket {
     @JoinColumn(name = "flight_id")
     private Flight flightId;
     private int seat;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "passanger_id")
     private Passenger passenger;
     @Column(name = "ticket_staus")
