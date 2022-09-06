@@ -9,7 +9,6 @@ import airport.service.PassengerService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.Optional;
 public class PassengerServiceImpl implements PassengerService {
     private ModelMapper mapperToDTO = new ModelMapper();
     @Autowired
-
     public PassengerRepository passengerRepository;
     @Autowired
     public FlightServiceImpl flightService;
@@ -78,8 +76,7 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public List<Passenger> getPassengerByFlightNumb(int flightNumb) throws UserNotFoundException {
         log.info("Service /List<Passenger> getPassengerByFlightNumb/ started work");
-        flightService.findFlightByFlightNumb(flightNumb);
-        List<Passenger> list = passengerRepository.getPassengerByFlightNumb(flightNumb);
+              List<Passenger> list = passengerRepository.getPassengerByFlightNumb(flightNumb);
         if (list.isEmpty()) {
             throw new UserNotFoundException("There are no passengers in Flight with flight_number " + flightNumb);
         }

@@ -1,6 +1,6 @@
 package airport.utils;
 
-import airport.repository.PassengerRepository;
+
 import airport.service.FlightService;
 import airport.service.PassengerService;
 import airport.service.TicketService;

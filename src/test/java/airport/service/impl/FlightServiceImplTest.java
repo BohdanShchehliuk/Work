@@ -1,9 +1,9 @@
 package airport.service.impl;
 
 import airport.Main;
-import airport.dto.FlightDto;
 import airport.entity.Flight;
 import airport.exception.UserNotFoundException;
+import airport.repository.FlightRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.modelmapper.ModelMapper;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -24,6 +24,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class FlightServiceImplTest {
     @Autowired
     FlightServiceImpl flightService;
+    @Autowired
+    FlightRepository flightRepository;
 
     @Test
     void findFlightByFlightNumb() throws UserNotFoundException {

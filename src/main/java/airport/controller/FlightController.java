@@ -2,7 +2,10 @@ package airport.controller;
 
 
 import airport.dto.FlightDto;
-import airport.entity.*;
+import airport.entity.Aircraft;
+import airport.entity.AircraftTypes;
+import airport.entity.Airline;
+import airport.entity.Flight;
 import airport.exception.CustomException;
 import airport.exception.UserAlreadyExistException;
 import airport.exception.UserNotFoundException;

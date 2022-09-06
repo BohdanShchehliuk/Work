@@ -5,7 +5,7 @@ import airport.entity.Flight;
 import airport.exception.CustomException;
 import airport.exception.UserAlreadyExistException;
 import airport.exception.UserNotFoundException;
-import lombok.AllArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
@@ -28,14 +28,12 @@ public class FlightServiceImpl implements airport.service.FlightService {
 
     public Flight addFlight(Flight flight) throws UserAlreadyExistException, CustomException {
         log.debug("Service / Flight addFlight/ started work");
-        if (flight.getAircraft().equals(null) || flight.getTime().toLocalTime().isBefore(LocalDateTime.now().toLocalTime()))
-        {
+        if (flight.getAircraft().equals(null) || flight.getTime().toLocalTime().isBefore(LocalDateTime.now().toLocalTime())) {
             throw new CustomException("Can't be added. Check crafts and time");
         }
 
         Optional<Flight> flight1 = Optional.ofNullable(flightRepository.findFlightByFlightNumb(flight.getFlightNumb()));
-        if (!flight1.isEmpty())
-        {
+        if (!flight1.isEmpty()) {
             throw new UserAlreadyExistException(flight.getId(), "This flight is already existed");
         }
         return flightRepository.save(flight);

@@ -11,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-import org.w3c.dom.ls.LSException;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @Transactional
@@ -56,7 +55,7 @@ class PassengerServiceImplTest {
             passenger = ticketList.get(i).getPassenger();
             passengerList.set(i, passenger);
         }
-       List<Passenger> respondList = passengerService.getPassengerByFlightNumb(flight.getFlightNumb());
+        List<Passenger> respondList = passengerService.getPassengerByFlightNumb(flight.getFlightNumb());
         assertEquals(passengerList, respondList);
     }
 }
