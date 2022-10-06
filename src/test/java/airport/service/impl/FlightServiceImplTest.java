@@ -6,7 +6,6 @@ import airport.exception.UserNotFoundException;
 import airport.repository.FlightRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -42,8 +41,7 @@ class FlightServiceImplTest {
         LocalDateTime finishData = LocalDateTime.of(2022, 12, 11, 11, 12);
         List<Flight> respond = flightService.getAllFlightsFromStartDataToFinishData(startData, finishData);
         System.out.println(respond);
-        ModelMapper mapperToDTO = new ModelMapper();
-        List<Flight> flightList = flightService
+              List<Flight> flightList = flightService
                 .getAll().stream().
                 filter(flight -> flight.getTime().isAfter(startData) &&
                         flight.getTime().isBefore(finishData))

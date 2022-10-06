@@ -5,13 +5,12 @@ import airport.entity.Flight;
 import airport.exception.CustomException;
 import airport.exception.UserAlreadyExistException;
 import airport.exception.UserNotFoundException;
-
+import airport.repository.FlightRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import airport.repository.FlightRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.Optional;
 @Service
 public class FlightServiceImpl implements airport.service.FlightService {
     private Session session;
-    private ModelMapper mapperToDTO = new ModelMapper();
+    private ModelMapper mapperToDTO;
 
     @Autowired
     private FlightRepository flightRepository;

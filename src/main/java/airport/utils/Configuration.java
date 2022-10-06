@@ -15,6 +15,7 @@ public class Configuration {
 
     @Bean
     public FlightService flightService() {
+
         return new FlightServiceImpl();
     }
 

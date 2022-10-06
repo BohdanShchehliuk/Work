@@ -15,7 +15,7 @@ public class TicketController {
     private TicketService ticketService;
     public static final String ANSI_RED = "\u001B[31m";
 
-    @GetMapping("/tickets/by/flight")
+    @GetMapping("/tickets/by/flight/")
     public String getAllByFlightNumb(@RequestParam int flightNumb) throws UserNotFoundException {
         log.info("Controller /tickets/by/flight started work");
         return ticketService.findTicketsByFlightNumb(flightNumb).toString();

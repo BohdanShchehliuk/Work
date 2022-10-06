@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 public class FlightController {
+
     private ModelMapper mapToEntity;
     private ModelMapper mapToDTO;
     private FlightServiceImpl flightService;
@@ -47,9 +48,15 @@ public class FlightController {
         return flightService.getAllFlightsFromStartDataToFinishData(start, finish);
     }
 
-    @GetMapping("/flight/get/tickets/")
+    @GetMapping("/flight/getAllFlights/")
+    private List <Flight> getAllFlights() throws UserNotFoundException {
+        log.info("Controller /flight/getAllFlights/ started work");
+        return flightService.getAll();
+    }
+
+    @GetMapping("/flight/getInfoAboutFlightByFlightNumb/")
     public FlightDto getByNumber(@RequestParam int flightNumb) throws Exception {
-        log.info("Controller /flight/get/tickets/ started work");
+        log.info("Controller /flight/getInfoAboutFlightByFlightNumb/ started work");
         if (flightNumb <= 0) throw new CustomException("Type flight_number again");
         return mapToDTO.map(flightService.findFlightByFlightNumb(flightNumb), FlightDto.class);
     }
