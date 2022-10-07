@@ -62,7 +62,7 @@ public class PassengerServiceImpl implements PassengerService {
 
     public String delete(String passport) throws UserNotFoundException {
         log.info("Service /String delete (String passport)/ started work");
-                if (passengerRepository.findAll()
+        if (passengerRepository.findAll()
                 .stream()
                 .filter(p -> p.getPassport().equals(passport))
                 .findFirst().isEmpty()) {
@@ -76,7 +76,8 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public List<Passenger> getPassengerByFlightNumb(int flightNumb) throws UserNotFoundException {
         log.info("Service /List<Passenger> getPassengerByFlightNumb/ started work");
-              List<Passenger> list = passengerRepository.getPassengerByFlightNumb(flightNumb);
+        if (flightNumb <= 0) throw new CustomException("Type flight_number again");
+        List<Passenger> list = passengerRepository.getPassengerByFlightNumb(flightNumb);
         if (list.isEmpty()) {
             throw new UserNotFoundException("There are no passengers in Flight with flight_number " + flightNumb);
         }

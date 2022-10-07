@@ -6,11 +6,10 @@ import airport.entity.Aircraft;
 import airport.entity.AircraftTypes;
 import airport.entity.Airline;
 import airport.entity.Flight;
-import airport.exception.CustomException;
 import airport.exception.UserAlreadyExistException;
 import airport.exception.UserNotFoundException;
 import airport.service.impl.FlightServiceImpl;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,18 +21,17 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FlightController {
 
-    private ModelMapper mapToEntity;
-    private ModelMapper mapToDTO;
-    private FlightServiceImpl flightService;
-    public static final String ANSI_RED = "\u001B[31m";
+    final private ModelMapper mapToEntity;
+    final private ModelMapper mapToDTO;
+    final private FlightServiceImpl flightService;
+    static final String ANSI_RED = "\u001B[31m";
 
     @PostMapping("/flight/create/")
     public String saveFlight(@RequestBody FlightDto flightDto) throws UserAlreadyExistException {
         log.info("Controller /flight/create/ started work");
-        if (flightDto.equals(null)) throw new CustomException("Type flight again");
         flightService.addFlight(mapToEntity.map(flightDto, Flight.class));
         return "You add a new flight ";
     }
@@ -49,7 +47,7 @@ public class FlightController {
     }
 
     @GetMapping("/flight/getAllFlights/")
-    private List <Flight> getAllFlights() throws UserNotFoundException {
+    private List<Flight> getAllFlights() throws UserNotFoundException {
         log.info("Controller /flight/getAllFlights/ started work");
         return flightService.getAll();
     }
@@ -57,7 +55,6 @@ public class FlightController {
     @GetMapping("/flight/getInfoAboutFlightByFlightNumb/")
     public FlightDto getByNumber(@RequestParam int flightNumb) throws Exception {
         log.info("Controller /flight/getInfoAboutFlightByFlightNumb/ started work");
-        if (flightNumb <= 0) throw new CustomException("Type flight_number again");
         return mapToDTO.map(flightService.findFlightByFlightNumb(flightNumb), FlightDto.class);
     }
 

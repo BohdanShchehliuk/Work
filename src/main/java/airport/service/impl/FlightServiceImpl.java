@@ -27,6 +27,7 @@ public class FlightServiceImpl implements airport.service.FlightService {
 
     public Flight addFlight(Flight flight) throws UserAlreadyExistException, CustomException {
         log.debug("Service / Flight addFlight/ started work");
+        if (flight.equals(null)) throw new CustomException("Type flight again");
         if (flight.getAircraft().equals(null) || flight.getTime().toLocalTime().isBefore(LocalDateTime.now().toLocalTime())) {
             throw new CustomException("Can't be added. Check crafts and time");
         }
@@ -66,6 +67,7 @@ public class FlightServiceImpl implements airport.service.FlightService {
     @Override
     public Optional<Flight> findFlightByFlightNumb(int flight_numb) throws UserNotFoundException {
         log.info("Service /Flight findFlightByFlightNumb/ started work");
+        if (flight_numb <= 0) throw new CustomException("Type flight_number again");
         Optional<Flight> flight = Optional.ofNullable(flightRepository.findFlightByFlightNumb(flight_numb));
         if (flight.isEmpty()) {
             throw new UserNotFoundException("This Flight numb " + flight_numb + " is absent");

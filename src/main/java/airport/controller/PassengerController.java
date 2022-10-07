@@ -2,26 +2,22 @@ package airport.controller;
 
 import airport.dto.PassengerDto;
 import airport.entity.Passenger;
-import airport.exception.CustomException;
 import airport.exception.UserAlreadyExistException;
 import airport.exception.UserNotFoundException;
 import airport.service.PassengerService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-
 @Slf4j
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PassengerController {
-    private PassengerService passengerService;
-    private ModelMapper mapToEntity;
-    private ModelMapper mapToDTO;
-    public static final String ANSI_RED = "\u001B[31m";
+    final private PassengerService passengerService;
+    final private ModelMapper mapToEntity;
+    final private ModelMapper mapToDTO;
+    static final String ANSI_RED = "\u001B[31m";
 
     @PostMapping("/passenger/post/")
     public String savePassenger(@RequestBody PassengerDto passenger) throws UserAlreadyExistException {
@@ -58,7 +54,6 @@ public class PassengerController {
     @GetMapping("/passenger/allpassengerbyflightnumber/")
     public String getPassengerByFlightNumb(@RequestParam int flightNumb) throws UserNotFoundException {
         log.info("Controller /passenger/allpassengerbyflightnumber/ started work");
-        if (flightNumb <= 0) throw new CustomException("Type flight_number again");
         return passengerService.getPassengerByFlightNumb(flightNumb).toString();
     }
 }
