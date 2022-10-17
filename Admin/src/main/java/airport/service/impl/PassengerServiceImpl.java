@@ -20,8 +20,6 @@ public class PassengerServiceImpl implements PassengerService {
     private ModelMapper mapperToDTO = new ModelMapper();
     @Autowired
     public PassengerRepository passengerRepository;
-    @Autowired
-    public FlightServiceImpl flightService;
 
     @Override
     public Passenger addPassenger(Passenger passenger) throws UserAlreadyExistException {

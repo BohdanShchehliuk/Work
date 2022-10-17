@@ -22,8 +22,11 @@ public class Personal {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "gate_id")
     private Gate gate;
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "personalInfo_id")
     private PersonalInfo personalInfo;
+
+
 
     @Override
     public String toString() {
