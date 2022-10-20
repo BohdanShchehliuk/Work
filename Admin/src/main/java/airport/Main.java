@@ -1,7 +1,6 @@
 package airport;
 
 import airport.exception.UserNotFoundException;
-import airport.service.impl.PassengerServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

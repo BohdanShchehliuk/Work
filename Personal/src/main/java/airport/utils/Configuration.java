@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 public class Configuration {
 
     @Bean
-    public PersonalService flightService() {
+    public PersonalService personalServiceService() {
 
         return new PersonalServiceImpl();
     }

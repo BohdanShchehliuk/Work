@@ -16,7 +16,7 @@ public class Gate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int numberOfgate;
+    private int numberofgate;
     @ManyToOne
     @JoinColumn(name = "terminal_id")
     private Terminal terminal;
@@ -27,7 +27,7 @@ public class Gate {
     public String toString() {
         return "Gate{" +
                 "id=" + id +
-                ", numberOfgate=" + numberOfgate +
+                ", numberOfgate=" + numberofgate +
                 ", terminal=" + terminal.getName() +
                 ", capacity=" + capacity +
                 '}';

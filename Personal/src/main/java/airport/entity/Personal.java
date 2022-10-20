@@ -23,10 +23,8 @@ public class Personal {
     @JoinColumn(name = "gate_id")
     private Gate gate;
     @OneToOne (cascade = CascadeType.ALL)
-    @JoinColumn(name = "personalInfo_id")
-    private PersonalInfo personalInfo;
-
-
+    @JoinColumn(name = "personalinfo_id")
+    private PersonalInfo personalinfo;
 
     @Override
     public String toString() {
