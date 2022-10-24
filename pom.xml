@@ -12,6 +12,7 @@
         <module>Admin</module>
         <module>Client</module>
         <module>Personal</module>
+        <module>Eureka-server</module>
     </modules>
 
     <properties>
