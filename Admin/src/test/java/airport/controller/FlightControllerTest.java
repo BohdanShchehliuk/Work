@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +44,8 @@ public class FlightControllerTest {
                 .param("flightNumb", param);
         MvcResult result = mockMvc.perform(request).andReturn();
         String actualResponseBody = result.getResponse().getContentAsString();
-        assertThat(actualResponseBody).isEqualToIgnoringWhitespace(
+        assertThat
+        (actualResponseBody).isEqualToIgnoringWhitespace(
                 objectMapper.writeValueAsString(flightDto));
     }
 
