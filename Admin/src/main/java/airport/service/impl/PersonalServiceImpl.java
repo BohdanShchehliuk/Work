@@ -76,7 +76,7 @@ public class PersonalServiceImpl implements PersonalService {
         if (numberOfgate <= 0) throw new CustomException("Type numberOfgate again");
         List<Personal> list = personalRepository.getPersonalByGate(numberOfgate);
         if (list.isEmpty()) {
-            throw new UserNotFoundException("There are no personal in Gate with  numberOfgate " +  numberOfgate);
+            throw new UserNotFoundException("There are no personal in Gate with  numberOfgate " + numberOfgate);
         }
         return list;
     }

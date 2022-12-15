@@ -16,6 +16,7 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
 
 
     @Query("from Flight f where f.time > :startData and f.time < :finishData")
-    List<Flight> getAllFlightsFromStartDataToFinishData(@Param("startData") LocalDateTime startData, @Param("finishData") LocalDateTime finishData);
+    List<Flight> getAllFlightsFromStartDataToFinishData(@Param("startData") LocalDateTime startData,
+                                                        @Param("finishData") LocalDateTime finishData);
 
 }

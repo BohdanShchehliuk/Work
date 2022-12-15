@@ -9,11 +9,11 @@ import java.util.List;
 public interface PersonalService {
     Personal addPersonal(Personal personal) throws UserAlreadyExistException;
 
-    List<Personal > getAll() throws UserNotFoundException;
+    List<Personal> getAll() throws UserNotFoundException;
 
-    Personal  getPersonalByNumbPhone(int numbPhone) throws UserNotFoundException;
+    Personal getPersonalByNumbPhone(int numbPhone) throws UserNotFoundException;
 
     String delete(String name) throws Exception;
 
-    List<Personal > getPersonalByGate(int numberOfgate) throws UserNotFoundException;
+    List<Personal> getPersonalByGate(int numberOfgate) throws UserNotFoundException;
 }

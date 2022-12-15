@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(SpringExtension.class)
 @Transactional
 @SpringBootTest(classes = Main.class)
 class PersonalServiceImplTest {
     @Autowired
-   PersonalServiceImpl personalService;
-
+    PersonalServiceImpl personalService;
 
 
     @Test
@@ -28,9 +28,9 @@ class PersonalServiceImplTest {
 
         Personal personal = personalService.getAll().stream().findAny().get();
         int personalNumbGate = personal.getGate().getNumberofgate();
-       List <Personal> respond = personalService.getPersonalByGate(personalNumbGate);
-        List <Personal> personalList = personalService.getAll().stream().filter(personal1 -> personal1.getGate().getNumberofgate()==
+        List<Personal> respond = personalService.getPersonalByGate(personalNumbGate);
+        List<Personal> personalList = personalService.getAll().stream().filter(personal1 -> personal1.getGate().getNumberofgate() ==
                 personalNumbGate).collect(Collectors.toList());
-                assertEquals(personalList, respond);
+        assertEquals(personalList, respond);
     }
- }
+}

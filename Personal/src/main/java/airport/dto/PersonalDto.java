@@ -17,8 +17,6 @@ public class PersonalDto {
     private int numbPhone;
 
 
-
-
     public Personal cretePersonal() {
         return Personal.builder()
                 .name(this.name)

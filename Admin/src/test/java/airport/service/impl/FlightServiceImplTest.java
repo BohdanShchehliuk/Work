@@ -41,7 +41,7 @@ class FlightServiceImplTest {
         LocalDateTime finishData = LocalDateTime.of(2022, 12, 11, 11, 12);
         List<Flight> respond = flightService.getAllFlightsFromStartDataToFinishData(startData, finishData);
         System.out.println(respond);
-              List<Flight> flightList = flightService
+        List<Flight> flightList = flightService
                 .getAll().stream().
                 filter(flight -> flight.getTime().isAfter(startData) &&
                         flight.getTime().isBefore(finishData))

@@ -45,7 +45,7 @@ public class FlightControllerTest {
         MvcResult result = mockMvc.perform(request).andReturn();
         String actualResponseBody = result.getResponse().getContentAsString();
         assertThat
-        (actualResponseBody).isEqualToIgnoringWhitespace(
+                (actualResponseBody).isEqualToIgnoringWhitespace(
                 objectMapper.writeValueAsString(flightDto));
     }
 

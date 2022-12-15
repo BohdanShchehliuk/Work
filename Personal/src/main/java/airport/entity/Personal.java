@@ -22,7 +22,7 @@ public class Personal {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "gate_id")
     private Gate gate;
-    @OneToOne (cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "personalinfo_id")
     private PersonalInfo personalinfo;
 

@@ -24,6 +24,7 @@ public interface TicketService {
     TicketDto byTicket(PassengerDto passengerDto, int flightId) throws UserNotFoundException;
 
     List<Ticket> findTicketsByFlightNumb(int flightNumb) throws UserNotFoundException;
-    List <Ticket> getAll() throws UserNotFoundException;
+
+    List<Ticket> getAll() throws UserNotFoundException;
 
 }

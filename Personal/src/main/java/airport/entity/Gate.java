@@ -27,7 +27,7 @@ public class Gate {
     public String toString() {
         return "Gate{" +
                 "id=" + id +
-                ", numberOfgate=" + numberofgate  +
+                ", numberOfgate=" + numberofgate +
                 ", terminal=" + terminal.getName() +
                 ", capacity=" + capacity +
                 '}';

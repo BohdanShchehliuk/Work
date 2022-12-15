@@ -29,7 +29,7 @@ public class PersonalController {
         return "You add a new passenger from Front End";
     }
 
-       @GetMapping("/personal/create/")
+    @GetMapping("/personal/create/")
     public String create(String name, int numbPhone) throws UserAlreadyExistException {
         log.info("Controller /personal/create/ started work");
         PersonalDto personalDto = PersonalDto.builder()
@@ -39,16 +39,18 @@ public class PersonalController {
         return savePersonal(personalDto);
     }
 
-     @GetMapping("/personal/getAll/")
+    @GetMapping("/personal/getAll/")
     public String getAll() throws UserNotFoundException {
         log.info("Controller /personal/getAll/ started work");
         return personalService.getAll().toString();
     }
+
     @GetMapping("/personal/getByPhoneNumber/")
     public String getPersonalByNumbPhone(@RequestParam int NumbPhone) throws UserNotFoundException {
         log.info("Controller /personal/getByPhoneNumber/ started work");
         return personalService.getPersonalByNumbPhone(NumbPhone).toString();
     }
+
     @GetMapping("/personal/getPersonalByGate/")
     public String getPersonalByGate(@RequestParam int gate) throws UserNotFoundException {
         log.info("Controller /personal/getPersonalByGate/ started work");

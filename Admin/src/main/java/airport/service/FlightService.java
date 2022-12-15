@@ -13,7 +13,8 @@ public interface FlightService {
 
     List<Flight> getAll() throws UserNotFoundException;
 
-    List<Flight> getAllFlightsFromStartDataToFinishData(LocalDateTime startData, LocalDateTime finishData) throws UserNotFoundException;
+    List<Flight> getAllFlightsFromStartDataToFinishData(LocalDateTime startData, LocalDateTime finishData)
+            throws UserNotFoundException;
 
    Optional <Flight> findFlightByFlightNumb(int flight_numb) throws UserNotFoundException;
 }

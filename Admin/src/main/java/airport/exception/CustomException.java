@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CustomException extends RuntimeException{
+public class CustomException extends RuntimeException {
     private String exceptionMassage;
 }
 
