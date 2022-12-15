@@ -12,7 +12,9 @@ import airport.service.impl.FlightServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -22,7 +24,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-public class FlightController {
+public class FlightController  {
 
     final private ModelMapper mapToEntity;
     final private ModelMapper mapToDTO;
@@ -75,6 +77,13 @@ public class FlightController {
                                 .build())
                         .build())
                 .build();
+
+            }
+
+    @RequestMapping(value = "/greeting", method = RequestMethod.GET)
+    public String get(ModelMap model) {
+        model.addAttribute("message", "Hello, World!");
+        return "greeting";
     }
 }
 
